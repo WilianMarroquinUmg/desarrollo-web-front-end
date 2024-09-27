@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    <button class="btn btn-primary" > Boton de prueba </button>
   </div>
 </template>
