@@ -10,11 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/scripts": "^0.9.4",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "nuxt": "^3.13.0",
-    "usebootstrap": "^3.5.55",
-    "vue": "latest",
+    "vue": "^3.5.10",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47"
   }
 }

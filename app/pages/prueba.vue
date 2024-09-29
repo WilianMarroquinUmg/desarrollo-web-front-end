@@ -2,17 +2,14 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: "sidebar",
-  data() {
-    return {
-
-    }
-  },
-
+  name: "prueba"
 })
 </script>
 
 <template>
+  <u-container>
+
+  </u-container>
 
 </template>
 
