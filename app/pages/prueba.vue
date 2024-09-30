@@ -7,9 +7,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <u-container>
-
-  </u-container>
 
 </template>
 
