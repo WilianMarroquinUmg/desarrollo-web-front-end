@@ -20,7 +20,7 @@ export default defineComponent({
 </script>
 
 <template>
-
+//definir card
   <div class="card radius-10 border-start border-0 border-4 border-info">
     <div class="card-body">
       <div class="d-flex align-items-center">
