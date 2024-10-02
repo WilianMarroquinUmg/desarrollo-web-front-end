@@ -21,7 +21,9 @@ export default defineComponent({
 
 <template>
 
-  <h1>mi bux</h1>
+  <UButton color="primary" variant="solid">Button</UButton>
+
+
 </template>
 
 <style scoped>
