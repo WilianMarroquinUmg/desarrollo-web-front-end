@@ -1,13 +1,31 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: 'app',
-  compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
+  ssr: false,
 
-  modules: ['@nuxt/ui'],
-  colorMode: {
-    preference: 'light'
+  typescript: {
+    shim: false
   },
 
+  build: {
+    transpile: ["vuetify"],
+  },
 
+  vite: {
+    define: {
+      "process.env.DEBUG": false,
+    },
+  },
+
+  nitro: {
+    serveStatic: true,
+  },
+
+  devServerHandlers: [],
+
+  hooks: {
+  },
+
+  modules: ["@nuxt/ui"],
+  compatibilityDate: "2024-10-01",
 })
