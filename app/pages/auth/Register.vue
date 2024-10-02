@@ -1,7 +1,14 @@
 <script setup lang="ts">
 /*-For Set Blank Layout-*/
 definePageMeta({
-  layout: "blank",
+  title: 'Register',
+  meta: [
+    {
+      name: 'description',
+      content: 'Register page of Modernize NuxtJS Admin Dashboard'
+    }
+  ],
+    layout: 'auth'
 });
 </script>
 <template>
