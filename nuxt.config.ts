@@ -31,8 +31,8 @@ srcDir: 'app',
 
   sanctum: {
     mode: 'token',
-    // baseUrl: 'http://back-pajas-agua-desarrollo-web.test/',
-    baseUrl: 'http://base-backend-with-laravel11.test/',
+    baseUrl: 'http://back-pajas-agua-desarrollo-web.test/',
+    // baseUrl: 'http://base-backend-with-laravel11.test/',
     userStateKey: 'sanctum.user.identity',
     redirectIfAuthenticated: true,
     redirectIfUnauthenticated: true,
