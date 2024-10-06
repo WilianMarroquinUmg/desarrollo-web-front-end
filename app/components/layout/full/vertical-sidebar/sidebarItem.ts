@@ -45,7 +45,9 @@ const sidebarItem: menu[] = [
     {
         title: 'Usuarios',
         icon: UsersIcon,
-        to: '/users/'
+        to: '/users/',
+        chipColor: 'warning',
+
     },
     { header: 'Extra' },
     {

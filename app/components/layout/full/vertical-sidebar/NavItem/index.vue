@@ -9,7 +9,8 @@ const props = defineProps({ item: Object, level: Number });
         :to="item.to"
         rounded
         class="mb-1"
-        active-color="primary"
+        active-color="warning"
+        color="warning"
         :disabled="item.disabled"
         :target="item.type === 'external' ? '_blank' : ''"
     >
