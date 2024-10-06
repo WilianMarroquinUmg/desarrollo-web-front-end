@@ -1,9 +1,21 @@
-// ===============================|| Blank Layout ||=============================== //
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+
+definePageMeta({
+  middleware: ['sanctum:guest'],
+});
+
 </script>
+
 <template>
   <v-app>
-    <RouterView />
+
+    <h1>Layaut para loguearse</h1>
+
+    <slot/>
   </v-app>
+
 </template>
+
+<style scoped>
+
+</style>

@@ -2,27 +2,24 @@
 
 definePageMeta({
     title: 'Dashboard',
-    //agregar un moddleware
-    middleware: ['sanctum:auth'],
+    layout: 'default',
 });
 
-import SalesOverview from '@/components/dashboard/SalesOverview.vue';
+const user = useSanctumUser()
 
 </script>
 <template>
     <v-row>
-        <v-col cols="12">
-            <v-row>
-                <!-- Sales overview -->
-                <v-col cols="12" lg="8">
-                    <SalesOverview />
-                </v-col>
-                <!-- Yearly Breakup / Monthly Earnings -->
 
-            </v-row>
-        </v-col>
-        <v-col class="text-center mt-2">
-            <p class="text-muted">Design and Developed by <a flat variant="text" href="https://adminmart.com/" target="_blank" class="pl-1 text-primary">AdminMart.com</a></p>
-        </v-col>
+      <v-card>
+        <v-card-title>
+          <h2>Resumen de ventas</h2>
+        </v-card-title>
+        <v-card-text>
+          <p>bienvenido {{ user.name }}</p>
+
+        </v-card-text>
+      </v-card>
+
     </v-row>
 </template>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
+
+const { logout } = useSanctumAuth();
+
 </script>
 
 <template>
-    <!-- ---------------------------------------------- -->
-    <!-- notifications DD -->
-    <!-- ---------------------------------------------- -->
+
     <v-menu :close-on-content-click="false">
         <template v-slot:activator="{ props }">
             <v-btn class="profileBtn custom-hover-primary" variant="text" v-bind="props" icon>
@@ -28,7 +29,7 @@ import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
                     </template>
                     <v-list-item-title  class="pl-4 text-body-1">My Account</v-list-item-title>
                 </v-list-item>
-                <v-list-item value="item3" active-color="primary"> 
+                <v-list-item value="item3" active-color="primary">
                     <template v-slot:prepend>
                         <ListCheckIcon stroke-width="1.5"  size="20"/>
                     </template>
@@ -36,7 +37,13 @@ import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
                 </v-list-item>
             </v-list>
             <div class="pt-4 pb-4 px-5 text-center">
-                <v-btn to="/auth/login" color="primary" variant="outlined" block>Logout</v-btn>
+                <v-btn color="danger"
+                       variant="outlined"
+                       block
+                       @click="logout"
+                >
+                  Logout
+                </v-btn>
             </div>
         </v-sheet>
     </v-menu>

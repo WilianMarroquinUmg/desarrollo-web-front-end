@@ -7,6 +7,15 @@ const checkbox = ref(true);
 
 const {login} = useSanctumAuth();
 
+
+interface DatosUsuario {
+  name: string;
+  email: string
+
+}
+
+
+
 const userCredentials = ref({})
 
 const submit = async () => {
@@ -18,8 +27,11 @@ const submit = async () => {
       title: "Login Successful",
       description: "You have been successfully logged in",
       icon: 'mdi:account-check',
-      color: 'success'
     });
+
+    const user = useSanctumUser();
+
+    console.log(user.value);
 
   } catch (err) {
 
