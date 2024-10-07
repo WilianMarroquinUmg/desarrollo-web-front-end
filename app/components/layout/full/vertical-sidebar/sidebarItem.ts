@@ -47,6 +47,16 @@ const sidebarItem: menu[] = [
         icon: UsersIcon,
         to: '/users/',
         chipColor: 'warning',
+        children: [
+            {
+                title: 'Listado',
+                to: '/users/',
+            },
+            {
+                title: 'Nuevo',
+                to: '/users/new',
+            },
+        ]
 
     },
     { header: 'Extra' },
