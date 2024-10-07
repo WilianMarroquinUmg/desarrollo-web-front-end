@@ -49,6 +49,7 @@ export default defineComponent({
                  color="primary"
                  variant="plain"
                  :class="{ 'active-item': isActive(item.to) }"
+                 :prepend-icon="item.icon"
 
     >
 

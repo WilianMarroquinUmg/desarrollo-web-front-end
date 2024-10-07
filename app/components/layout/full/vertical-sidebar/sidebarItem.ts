@@ -1,9 +1,4 @@
-import {
-    ApertureIcon,
-    CopyIcon,
-    LayoutDashboardIcon, LoginIcon, MoodHappyIcon, TypographyIcon, UsersIcon,
 
-} from 'vue-tabler-icons';
 
 export interface menu {
     header?: string;
@@ -18,58 +13,46 @@ export interface menu {
     disabled?: boolean;
     type?: string;
     subCaption?: string;
+    value?: string;
 }
 
+
 const sidebarItem: menu[] = [
-    { header: 'Home' },
     {
-        title: 'Dashboard',
-        icon: LayoutDashboardIcon,
-        to: '/dashboard',
-
+        title: 'Home',
+        icon: 'mdi-home',
+        value: 'home',
+        to: '/',
     },
-    { header: 'utilities',  },
-
     {
-        title: 'Typography',
-        icon: TypographyIcon,
-        to: '/ui/typography'
-    },
-
-    {
-        title: 'Shadow',
-        icon: CopyIcon,
-        to: '/ui/shadow'
-    },
-    { header: 'Admin' },
-    {
-        title: 'Usuarios',
-        icon: UsersIcon,
-        to: '/users/',
-        chipColor: 'warning',
+        title: 'Users',
+        icon: 'mdi-account-circle',
+        value: 'users',
         children: [
             {
-                title: 'Listado',
-                to: '/users/',
+                title: 'Listar Usuarios',
+                icon: 'mdi-account-multiple',
+                value: 'admin',
+                to: '/users',
             },
             {
-                title: 'Nuevo',
-                to: '/users/new',
+                title: 'Crear Usuario',
+                icon: 'mdi-account-plus',
+                value: 'actions',
+                to: '/prueba',
             },
-        ]
+        ],
+    },
+    {
+        title: 'icons',
+        icon: 'iconsminds-three-arrow-fork',
+        value: 'icons',
+        to: '/icons',
+    }
 
-    },
-    { header: 'Extra' },
-    {
-        title: 'Icons',
-        icon: MoodHappyIcon,
-        to: '/icons'
-    },
-    {
-        title: 'Sample Page',
-        icon: ApertureIcon,
-        to: '/sample-page'
-    },
 ];
+
+
+
 
 export default sidebarItem;
