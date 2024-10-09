@@ -13,7 +13,7 @@ const user = useSanctumUser()
 
       <v-card>
         <v-card-title>
-          <h2>Bienvenido <span v-text="user?.name"></span> </h2>
+          <h2>Bienvenido <span v-text="user?.nombre_completo"></span> </h2>
         </v-card-title>
         <v-card-text>
 

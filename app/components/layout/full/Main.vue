@@ -15,7 +15,7 @@ const sDrawer = ref(true);
 
   <v-navigation-drawer left elevation="0" app class="leftSidebar" v-model="sDrawer">
     <!---Logo part -->
-    <div style="background: skyblue; height: 60px; padding: 20px; ">
+    <div style="background: blue; height: 60px; padding: 20px; ">
       <LayoutFullLogo/>
     </div>
 
@@ -38,7 +38,7 @@ const sDrawer = ref(true);
 
   </v-navigation-drawer>
 
-  <v-app-bar height="60" style="background: skyblue">
+  <v-app-bar height="60" style="background: blue">
     <div class="d-flex align-center justify-space-between w-100">
       <div>
         <v-btn class="hidden-lg-and-up ms-md-3 ms-sm-5 ms-3 text-muted" @click="sDrawer = !sDrawer" icon variant="flat"

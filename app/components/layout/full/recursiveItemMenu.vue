@@ -45,8 +45,6 @@ export default defineComponent({
                  :to="item.to"
                  rounded
                  class="mb-1"
-                 active-color="primary"
-                 color="primary"
                  variant="plain"
                  :class="{ 'active-item': isActive(item.to) }"
                  :prepend-icon="item.icon"
@@ -68,7 +66,7 @@ export default defineComponent({
 
 <style scoped>
 .active-item {
-  background-color: #b3e5fc; /* Fondo celeste para ítem activo */
-  color: #007bff; /* Color de texto para ítem activo */
+  background-color: #4e4eed; /* Fondo celeste para ítem activo */
+  color: white; /* Color de texto para ítem activo */
 }
 </style>

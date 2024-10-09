@@ -39,7 +39,7 @@ const sidebarItem: menu[] = [
                 title: 'Crear Usuario',
                 icon: 'mdi-account-plus',
                 value: 'actions',
-                to: '/prueba',
+                to: '/users/create',
             },
         ],
     },

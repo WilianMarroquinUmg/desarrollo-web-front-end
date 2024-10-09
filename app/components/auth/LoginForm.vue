@@ -29,10 +29,6 @@ const submit = async () => {
       icon: 'mdi:account-check',
     });
 
-    const user = useSanctumUser();
-
-    console.log(user.value);
-
   } catch (err) {
 
     toast.add({
