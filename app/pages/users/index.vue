@@ -4,51 +4,56 @@ import UiParentCard from '@/components/shared/UiParentCard.vue';
 
 export default defineComponent({
   name: "index",
+
   data() {
     return {
-      people: [{
-        id: 1,
-        name: 'Lindsay Walton',
-        title: 'Front-end Developer',
-        email: 'lindsay.walton@example.com',
-        role: 'Member'
-      }, {
-        id: 2,
-        name: 'Courtney Henry',
-        title: 'Designer',
-        email: 'courtney.henry@example.com',
-        role: 'Admin'
-      }, {
-        id: 3,
-        name: 'Tom Cook',
-        title: 'Director of Product',
-        email: 'tom.cook@example.com',
-        role: 'Member'
-      }, {
-        id: 4,
-        name: 'Whitney Francis',
-        title: 'Copywriter',
-        email: 'whitney.francis@example.com',
-        role: 'Admin'
-      }, {
-        id: 5,
-        name: 'Leonard Krasner',
-        title: 'Senior Designer',
-        email: 'leonard.krasner@example.com',
-        role: 'Owner'
-      }, {
-        id: 6,
-        name: 'Floyd Miles',
-        title: 'Principal Designer',
-        email: 'floyd.miles@example.com',
-        role: 'Member'
-      }]
+      usersColumns: [
+        {key: 'nombre_completo', label: 'Nombre Completo'},
+        {key: 'email', label: 'Email'},
+      ],
+      users: []
+    }
+  },
+
+  components: {
+    UiParentCard
+  },
+
+  methods: {
+    async getUsers() {
+
+      try {
+
+        let cliente = useSanctumClient()
+
+        let { data, error } = await useAsyncData('getUsers',  () => {
+          return cliente('/api/users', {
+            method: 'GET'
+          })
+        })
+
+        if (error.value) {
+
+          throw new Error(error.value.data.message)
+
+        }
+
+        console.log(data.value)
+        this.users = data.value
+
+      } catch (error) {
+
+        console.log(error)
+
+      }
 
     }
   },
-  components: {
-    UiParentCard
+
+  mounted() {
+    this.getUsers()
   }
+
 })
 </script>
 
@@ -66,7 +71,9 @@ export default defineComponent({
         />
       </div>
       <UiParentCard>
-        <UTable :rows="people"/>
+        <UTable :rows="users"
+                :columns="usersColumns"
+        />
       </UiParentCard>
     </v-col>
   </v-row>
