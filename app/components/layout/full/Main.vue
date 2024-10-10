@@ -20,9 +20,9 @@ const sDrawer = ref(true);
     </div>
 
     <div>
-      <perfect-scrollbar class="scrollnavbar pa-3">
+      <perfect-scrollbar class="scrollnavbar pa-3" style="background: #2c3e50    ">
 
-        <v-list>
+        <v-list style="background: #2c3e50    ">
           <recursive-item-menu
               v-for="(item, i) in menuItems.values()"
               :key="i"

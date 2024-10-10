@@ -20,7 +20,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="todo">
     <v-list-group v-if="item.children"
                   :value="item.title"
     >
@@ -66,7 +66,10 @@ export default defineComponent({
 
 <style scoped>
 .active-item {
-  background-color: #4e4eed; /* Fondo celeste para ítem activo */
+  background-color: blue; /* Fondo celeste para ítem activo */
+  color: white; /* Color de texto para ítem activo */
+}
+.todo {
   color: white; /* Color de texto para ítem activo */
 }
 </style>

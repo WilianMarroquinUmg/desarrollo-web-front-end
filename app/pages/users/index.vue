@@ -1,6 +1,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import MiCard from "~/components/personalized/MiCard.vue";
 
 export default defineComponent({
   name: "index",
@@ -22,6 +23,7 @@ export default defineComponent({
   },
 
   components: {
+    MiCard,
     UiParentCard
   },
 
@@ -82,8 +84,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-row>
-    <v-col cols="12" md="12">
+
+
       <div class="text-right mb-4">
         <UButton
             icon="i-heroicons-pencil-square"
@@ -95,8 +97,8 @@ export default defineComponent({
             to="/users/create"
         />
       </div>
-      <UiParentCard>
 
+      <mi-card borderColor="#e74c3c">
         <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
           <UInput v-model="query" placeholder="Filter people..." />
         </div>
@@ -110,9 +112,8 @@ export default defineComponent({
           <UPagination v-model="page" :page-count="pageCount" :total="users.length" />
         </div>
 
-      </UiParentCard>
-    </v-col>
-  </v-row>
+      </mi-card>
+
 
 
 </template>

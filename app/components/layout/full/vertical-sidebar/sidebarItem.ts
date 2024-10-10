@@ -48,6 +48,12 @@ const sidebarItem: menu[] = [
         icon: 'iconsminds-three-arrow-fork',
         value: 'icons',
         to: '/icons',
+    },
+    {
+        title: 'Prueba',
+        icon: 'iconsminds-three-arrow-fork',
+        value: 'prueba',
+        to: '/prueba',
     }
 
 ];
