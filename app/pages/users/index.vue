@@ -8,10 +8,16 @@ export default defineComponent({
   data() {
     return {
       usersColumns: [
-        {key: 'nombre_completo', label: 'Nombre Completo'},
+        {key: 'id', label: 'Id', sortable: true},
+        {key: 'nombre_completo', label: 'Nombre'},
+        {key: 'nombre_completo', label: 'Ema'},
         {key: 'email', label: 'Email'},
       ],
-      users: []
+      users: [],
+      query: '',
+      page: 1,
+      pageCount: 5,
+
     }
   },
 
@@ -52,6 +58,24 @@ export default defineComponent({
 
   mounted() {
     this.getUsers()
+  },
+
+  computed: {
+    filteredUsers() {
+      if (!this.query) {
+        return this.users
+      }
+
+      return this.users.filter((user) => {
+        return Object.values(user).some((value) => {
+          return String(value).toLowerCase().includes(this.query.toLowerCase())
+        })
+      })
+    },
+
+    rows() {
+      return this.filteredUsers.slice((this.page - 1) * this.pageCount, (this.page) * this.pageCount)
+    }
   }
 
 })
@@ -68,12 +92,24 @@ export default defineComponent({
             variant="solid"
             label="Nuevo Usuario"
             :trailing="false"
+            to="/users/create"
         />
       </div>
       <UiParentCard>
-        <UTable :rows="users"
+
+        <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
+          <UInput v-model="query" placeholder="Filter people..." />
+        </div>
+
+        <UTable :rows="rows"
                 :columns="usersColumns"
+                sort-asc-icon="i-heroicons-arrow-up-20-solid"
         />
+
+        <div class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700">
+          <UPagination v-model="page" :page-count="pageCount" :total="users.length" />
+        </div>
+
       </UiParentCard>
     </v-col>
   </v-row>
