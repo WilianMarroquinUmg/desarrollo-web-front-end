@@ -9,8 +9,12 @@ export default defineComponent({
   setup(props) {
     const route = useRoute();
 
-    const isActive = (to: string) => {
-      return route.path === to;  // Compara la ruta actual con el destino del ítem
+    const isActive = (to) => {
+      const currentPathSegments = route.path.split('/').filter(Boolean); // Dividir ruta actual y filtrar segmentos vacíos
+      const targetSegments = to.split('/').filter(Boolean); // Dividir el valor objetivo
+
+
+      return currentPathSegments[0] === targetSegments[0] && currentPathSegments[1] === targetSegments[1];
     };
 
     return { isActive };

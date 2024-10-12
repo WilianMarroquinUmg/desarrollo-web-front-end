@@ -1,27 +1,48 @@
-<script lang="ts">
-import {defineComponent} from 'vue'
-import MiCard from "~/components/personalized/MiCard.vue";
-
-export default defineComponent({
-  name: "prueba",
-  components: {MiCard}
-})
-</script>
-
 <template>
-  <u-container>
-
-    <mi-card title="Mi Card" borderColor="#1e272e">
-      <div>
-        <h1>Card Content</h1>
-        <p>Card content goes here...</p>
-      </div>
+  <div>
+    <mi-card borderColor="#e74c3c">
+    <vue-good-table
+        :columns="columns"
+        :rows="users"
+        :search-options="{ enabled: true }"
+        :pagination-options="{ enabled: true, perPage: 5 }"
+    >
+      <template #table-row="{ column, row }">
+        <span v-if="column.field === 'website'">
+          <a :href="`http://${row.website}`" target="_blank">{{ row.website }}</a>
+        </span>
+        <span v-else>{{ row[column.field] }}</span>
+      </template>
+    </vue-good-table>
     </mi-card>
-
-  </u-container>
-
+  </div>
 </template>
 
-<style scoped>
+<script setup>
+import { ref } from 'vue';
+import { useAsyncData } from '#app';
+import MiCard from "~/components/personalized/MiCard.vue";
 
+const users = ref([]);
+const columns = [
+  { label: 'Name', field: 'name' },
+  { label: 'Username', field: 'username' },
+  { label: 'Email', field: 'email' },
+  { label: 'Website', field: 'website' }
+];
+
+
+let cliente = useSanctumClient();
+
+let { data: userData } = await useAsyncData('getUsers', () => {
+  return cliente('/api/users', {
+    method: 'GET'
+  });
+});
+
+users.value = userData.value;
+</script>
+
+<style>
+/* You can add custom styles here */
 </style>

@@ -7,6 +7,7 @@ srcDir: 'app',
     shim: false
   },
 
+
   build: {
     transpile: ["vuetify"],
   },

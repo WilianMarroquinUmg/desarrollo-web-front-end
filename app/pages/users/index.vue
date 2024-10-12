@@ -1,123 +1,102 @@
-<script lang="ts">
-import {defineComponent} from 'vue'
-import UiParentCard from '@/components/shared/UiParentCard.vue';
+<script lang="ts" setup>
+import {ref} from 'vue';
 import MiCard from "~/components/personalized/MiCard.vue";
+import {useAsyncData} from '#app';
 
-export default defineComponent({
-  name: "index",
+import {useRouter} from 'vue-router';
 
-  data() {
-    return {
-      usersColumns: [
-        {key: 'id', label: 'Id', sortable: true},
-        {key: 'nombre_completo', label: 'Nombre'},
-        {key: 'nombre_completo', label: 'Ema'},
-        {key: 'email', label: 'Email'},
-      ],
-      users: [],
-      query: '',
-      page: 1,
-      pageCount: 5,
+const usersColumns = ref([
+  {label: 'Nombre Completo', field: 'nombre_completo'},
+  {label: 'Email', field: 'email'},
+  {label: 'Opciones', field: 'opciones'},
+]);
 
-    }
-  },
+const users = ref([]);
 
-  components: {
-    MiCard,
-    UiParentCard
-  },
+let cliente = useSanctumClient();
 
-  methods: {
-    async getUsers() {
+let {data: userData} = await useAsyncData('getUsers', () => {
+  return cliente('/api/users', {
+    method: 'GET'
+  });
+});
 
-      try {
+users.value = userData.value;
 
-        let cliente = useSanctumClient()
+const deleteUser = async (id: number) => {
+  let {data: deletedUser} = await useAsyncData('deleteUser', () => {
+    return cliente(`/api/users/${id}`, {
+      method: 'DELETE'
+    });
+  });
 
-        let { data, error } = await useAsyncData('getUsers',  () => {
-          return cliente('/api/users', {
-            method: 'GET'
-          })
-        })
-
-        if (error.value) {
-
-          throw new Error(error.value.data.message)
-
-        }
-
-        console.log(data.value)
-        this.users = data.value
-
-      } catch (error) {
-
-        console.log(error)
-
-      }
-
-    }
-  },
-
-  mounted() {
-    this.getUsers()
-  },
-
-  computed: {
-    filteredUsers() {
-      if (!this.query) {
-        return this.users
-      }
-
-      return this.users.filter((user) => {
-        return Object.values(user).some((value) => {
-          return String(value).toLowerCase().includes(this.query.toLowerCase())
-        })
-      })
-    },
-
-    rows() {
-      return this.filteredUsers.slice((this.page - 1) * this.pageCount, (this.page) * this.pageCount)
-    }
+  if (deletedUser.value) {
+    users.value = users.value.filter((user: any) => user.id !== id);
   }
+};
 
-})
+const editUser = (id: number) => {
+
+  navigateTo(`/users/edit/${id}`);
+
+};
+
+
 </script>
 
 <template>
+  <div class="text-right mb-4">
+    <UButton
+        icon="i-heroicons-pencil-square"
+        size="sm"
+        color="primary"
+        variant="solid"
+        label="Nuevo Usuario"
+        :trailing="false"
+        to="/users/create"
+    />
+  </div>
+
+  <mi-card borderColor="#e74c3c">
+    <vue-good-table
+        :columns="usersColumns"
+        :rows="users"
+        :search-options="{ enabled: true }"
+        :pagination-options="{ enabled: true, perPage: 5 }"
+    >
+
+      <template #table-row="props">
+          <span v-if="props.column.field == 'opciones'">
+            <UButton
+                icon="i-heroicons-eye"
+                size="sm"
+                color="blue"
+                variant="solid"
+            />
+            <UButton
+                  icon="i-heroicons-pencil-square"
+                  size="sm"
+                  color="yellow"
+                  variant="solid"
+                  @click="editUser(props.row.id)"
+              />
+            <UButton
+                icon="i-heroicons-trash"
+                size="sm"
+                color="red"
+                variant="solid"
+            />
 
 
-      <div class="text-right mb-4">
-        <UButton
-            icon="i-heroicons-pencil-square"
-            size="sm"
-            color="primary"
-            variant="solid"
-            label="Nuevo Usuario"
-            :trailing="false"
-            to="/users/create"
-        />
-      </div>
+          </span>
+        <span v-else>
+            {{ props.formattedRow[props.column.field] }}
+          </span>
+      </template>
 
-      <mi-card borderColor="#e74c3c">
-        <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
-          <UInput v-model="query" placeholder="Filter people..." />
-        </div>
-
-        <UTable :rows="rows"
-                :columns="usersColumns"
-                sort-asc-icon="i-heroicons-arrow-up-20-solid"
-        />
-
-        <div class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700">
-          <UPagination v-model="page" :page-count="pageCount" :total="users.length" />
-        </div>
-
-      </mi-card>
-
-
-
+    </vue-good-table>
+  </mi-card>
 </template>
 
 <style scoped>
-
 </style>

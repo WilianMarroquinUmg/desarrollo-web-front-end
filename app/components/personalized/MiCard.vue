@@ -1,14 +1,17 @@
 <template>
   <div class="card" :style="{ borderTop: '3px solid #0CCDE1 '}">
     <div class="card-header">
-      <h3>{{ title }}</h3>
+      <slot name="header"></slot>
     </div>
     <div class="card-body">
       <slot></slot>
     </div>
-    <div class="card-footer" v-if="footer">
-      <small>{{ footer }}</small>
+
+    <div class="card-footer">
+      <slot name="footer"></slot>
     </div>
+
+
   </div>
 </template>
 
