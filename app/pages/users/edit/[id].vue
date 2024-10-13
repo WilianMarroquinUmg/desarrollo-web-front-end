@@ -44,6 +44,9 @@ state.segundo_nombre = userData.value.segundo_nombre;
 state.primer_apellido = userData.value.primer_apellido;
 state.segundo_apellido = userData.value.segundo_apellido;
 
+const active = useState('activeItem');
+active.value = 'users';
+
 </script>
 
 <template>

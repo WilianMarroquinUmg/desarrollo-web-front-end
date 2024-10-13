@@ -25,21 +25,15 @@ const sidebarItem: menu[] = [
         to: '/',
     },
     {
-        title: 'Users',
+        title: 'Admin',
         icon: 'mdi-account-circle',
         value: 'users',
         children: [
             {
-                title: 'Listar Usuarios',
+                title: 'Users',
                 icon: 'mdi-account-multiple',
-                value: 'admin',
+                value: 'users',
                 to: '/users',
-            },
-            {
-                title: 'Crear Usuario',
-                icon: 'mdi-account-plus',
-                value: 'actions',
-                to: '/users/create',
             },
         ],
     },

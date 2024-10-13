@@ -4,6 +4,8 @@ definePageMeta({
   middleware: ['sanctum:auth'],
 });
 
+useState('activeItem', () => '');
+
 </script>
 
 <template>

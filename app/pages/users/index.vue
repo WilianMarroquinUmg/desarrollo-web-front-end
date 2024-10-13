@@ -41,6 +41,8 @@ const editUser = (id: number) => {
 
 };
 
+const active = useState('activeItem');
+active.value = 'users';
 
 </script>
 

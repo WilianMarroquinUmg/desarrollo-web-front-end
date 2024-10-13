@@ -41,6 +41,10 @@ let { data: userData } = await useAsyncData('getUsers', () => {
 });
 
 users.value = userData.value;
+
+const active = useState('activeItem');
+active.value = 'prueba';
+
 </script>
 
 <style>

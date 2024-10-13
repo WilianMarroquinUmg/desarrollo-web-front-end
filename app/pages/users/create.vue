@@ -1,75 +1,61 @@
-<script lang="ts">
-import { defineComponent, reactive } from 'vue';
-import { object, string, InferType } from 'yup';
+
+<script lang="ts" setup>
+import { reactive, ref } from 'vue';
+import { InferType } from 'yup';
+import { validaciones, UserForm } from '~/types/personalizados/User';
 import type { FormSubmitEvent } from '#ui/types';
 
+const active = useState('activeItem');
+active.value = 'users';
+
 const toast = useToast();
-export default defineComponent({
-  name: 'FormComponent',
-  data() {
-    return {
-      schema: object({
-        primer_nombre: string().required('Required'),
-        segundo_nombre: string().required('Required'),
-        primer_apellido: string().required('Required'),
-        segundo_apellido: string().required('Required'),
-        email: string().email('Invalid email').required('Required'),
-        password: string().min(8, 'Must be at least 8 characters').required('Required'),
-        password_confirmation: string().required('Required')
-      }),
-      state: reactive({
-        email: undefined,
-        password: undefined,
-        primer_nombre: undefined,
-        segundo_nombre: undefined,
-        primer_apellido: undefined,
-        segundo_apellido: undefined,
-        password_confirmation: undefined
 
-      })
-    };
-  },
-  methods: {
-    async onSubmit(event: FormSubmitEvent<InferType<typeof this.schema>>) {
+const schema = validaciones;
 
-      try {
-        const client = useSanctumClient();
-
-        const { data, error, refresh } = await useAsyncData('createUser', () =>
-            client('/api/users', {
-              method: 'POST',
-              body: this.state
-            })
-        );
-
-        if (error.value) {
-          throw new Error(error.value.data.message);
-        }
-
-        toast.add({
-          title: "Usuario Creado! ",
-          description: data.value.message,
-          icon: 'mdi:account-check',
-        });
-
-        refresh();
-
-        this.$router.push('/users');
-
-      } catch (e) {
-
-        toast.add({
-          title: "Error al intentar crear el usuario",
-          description: e.message,
-          icon: 'mdi:account-remove',
-          color: 'red'
-        });
-
-      }
-
-    }
-  }
+const state = reactive<UserForm>({
+  primer_nombre: '',
+  segundo_nombre: '',
+  primer_apellido: '',
+  segundo_apellido: '',
+  email: '',
+  password: '',
+  password_confirmation: ''
 });
+
+const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
+  try {
+    const client = useSanctumClient();
+
+    const { data, error, refresh } = await useAsyncData('createUser', () =>
+        client('/api/users', {
+          method: 'POST',
+          body: state
+        })
+    );
+
+    if (error.value) {
+      throw new Error(error.value.data.message);
+    }
+
+    toast.add({
+      title: 'Usuario Creado!',
+      description: data.value.message,
+      icon: 'mdi:account-check',
+    });
+
+    refresh();
+
+    navigateTo('/users');
+
+  } catch (e: any) {
+    toast.add({
+      title: 'Error al intentar crear el usuario',
+      description: e.message,
+      icon: 'mdi:account-remove',
+      color: 'red'
+    });
+  }
+};
 </script>
 
 <template>
@@ -87,7 +73,6 @@ export default defineComponent({
         <UInput v-model="state.segundo_nombre" />
       </UFormGroup>
 
-      <!-- Segunda columna -->
       <UFormGroup label="Primer Apellido" name="primer_apellido">
         <UInput v-model="state.primer_apellido" />
       </UFormGroup>
@@ -115,5 +100,4 @@ export default defineComponent({
       </div>
     </UForm>
   </UCard>
-
 </template>
