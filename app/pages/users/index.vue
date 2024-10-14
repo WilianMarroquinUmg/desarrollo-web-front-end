@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import MiCard from "~/components/personalized/MiCard.vue";
-import {useToastNotifications} from "~/composables/toastNotifications";
-import Swal from 'sweetalert2';
+
+const {AlertCuestion} = useSweetAlert2();
 
 const cliente = useSanctumRequest();
 
-const { notifySuccess, notifyError } = useToastNotifications();
+const {notifySuccess, notifyError} = useToastNotifications();
 
 const usersColumns = ref([
   {label: 'Nombre Completo', field: 'nombre_completo'},
@@ -32,21 +32,9 @@ const getUsers = async () => {
 
 getUsers();
 
-
 const deleteUser = async (id: number) => {
 
-  const result = await Swal.fire({
-    title: '¿Estás seguro?',
-    text: "¡No podrás revertir esto!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#e1f6e1',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, borrarlo!',
-    cancelButtonText: 'Cancelar',
-  });
-
-  if (result.isConfirmed) {
+  if (await AlertCuestion('¿Estas seguro de eliminar este usuario?')) {
 
     try {
 
@@ -63,12 +51,6 @@ const deleteUser = async (id: number) => {
     }
 
   }
-
-};
-
-const editUser = (id: number) => {
-
-  navigateTo(`/users/edit/${id}`);
 
 };
 
@@ -112,7 +94,7 @@ active.value = 'users';
                 size="sm"
                 color="yellow"
                 variant="solid"
-                @click="editUser(props.row.id)"
+                :to="`/users/edit/${props.row.id}`"
                 class="mr-1"
             />
             <UButton
