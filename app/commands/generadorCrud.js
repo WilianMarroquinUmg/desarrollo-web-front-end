@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 
-const __dirname = path.resolve(); // Ruta base del proyecto
+const __dirname = path.resolve();
 
 // Configura readline
 const rl = readline.createInterface({
@@ -14,37 +14,63 @@ const question = (query) => {
     return new Promise((resolve) => rl.question(query, resolve));
 };
 
+const formatearCampos = (campos) => {
+    return campos.map(campo => {
+        return {
+            label: campo,
+            field: campo,
+        };
+    });
+};
+
 const askQuestions = async () => {
     try {
         const modelo = await question('Ingrese el nombre del modelo: (Ej: User) ');
         if (!modelo) throw new Error("El nombre del modelo no puede estar vacío.");
 
-        const modeloMinusculas = modelo.toLowerCase(); // Convertir el nombre del modelo a minúsculas
-        const directory = `./app/pages/${modeloMinusculas}`; // Ruta de la carpeta del modelo
+        const camposInput = await question('Ingrese los nombres de los campos separados por coma (Ej: nombre,apellido,segundo_nombre): ');
+        if (!camposInput) throw new Error("Los campos no pueden estar vacíos.");
 
-        // Crea la carpeta si no existe
+        const url = await question('Ingrese la url de la API (Ejemplo: /api/users): ');
+        if (!url) throw new Error("La url no puede estar vacía.");
+
+        const campos = camposInput.split(',').map(campo => campo.trim());
+
+        console.log(campos);
+
+        const modeloMinusculas = modelo.toLowerCase();
+        const directory = `./app/pages/${modeloMinusculas}`;
+
         if (!fs.existsSync(directory)) {
             fs.mkdirSync(directory, { recursive: true });
         }
 
-        // Leer las plantillas desde los archivos
-        const listTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'indexTemplate.vue'), 'utf-8').replace(/{{ model }}/g, modelo);
-        const createTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'createTemplate.vue'), 'utf-8').replace(/{{ model }}/g, modelo);
-        const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8').replace(/{{ model }}/g, modelo);
-        const showTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'showTemplate.vue'), 'utf-8').replace(/{{ model }}/g, modelo);
+        const columnas = formatearCampos(campos);
+        const columnasJSON = JSON.stringify(columnas, null, 2); // Convertir a formato JSON
 
-        // Crear los archivos en la carpeta del modelo
+        const listTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'indexTemplate.vue'), 'utf-8')
+            .replace(/{{ model }}/g, modelo)
+            .replace(/{{ Reemplazame }}/g, columnasJSON)
+            .replace(/{{ url }}/g, url);
+
+        const createTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'createTemplate.vue'), 'utf-8')
+            .replace(/{{ model }}/g, modelo);
+
+        const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8')
+            .replace(/{{ model }}/g, modelo);
+
+        const showTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'showTemplate.vue'), 'utf-8')
+            .replace(/{{ model }}/g, modelo);
+
         fs.writeFileSync(path.join(directory, 'index.vue'), listTemplate);
         fs.writeFileSync(path.join(directory, 'create.vue'), createTemplate);
 
-        // Crear la carpeta edit si no existe y luego crear el archivo [id].vue
         const editDir = path.join(directory, 'edit');
         if (!fs.existsSync(editDir)) {
             fs.mkdirSync(editDir, { recursive: true });
         }
         fs.writeFileSync(path.join(editDir, '[id].vue'), editTemplate);
 
-        // Crear la carpeta show si no existe y luego crear el archivo [id].vue
         const showDir = path.join(directory, 'show');
         if (!fs.existsSync(showDir)) {
             fs.mkdirSync(showDir, { recursive: true });
@@ -64,5 +90,4 @@ const askQuestions = async () => {
     }
 };
 
-// Inicia el flujo de preguntas
 askQuestions();
