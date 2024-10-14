@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "generarCrud": "node app/commands/generadorCrud.js"
   },
   "dependencies": {
     "@mdi/font": "^6.9.96",
