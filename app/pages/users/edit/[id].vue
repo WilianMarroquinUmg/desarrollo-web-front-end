@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import MiCard from '~/components/personalized/MiCard.vue';
 import { object, string, InferType } from 'yup';
 import { ref, reactive } from 'vue';
 import type { FormSubmitEvent } from '#ui/types';
+const {notifySuccess, notifyError} = useToastNotifications();
 
-const toast = useToast();
 const route = useRoute();
-const parametro = route.params.id;
+const id = route.params.id;
 
 const schema = object({
   primer_nombre: string().required('Required'),
@@ -28,51 +27,51 @@ const state = reactive({
   password_confirmation: undefined,
 });
 
-const formRef = ref(); // Crear referencia para el formulario
+const formRef = ref();
 
-let cliente = useSanctumClient();
+let cliente = useSanctumRequest();
 
-let { data: userData } = await useAsyncData('getUser', () => {
-  return cliente(`/api/users/${parametro}`, {
-    method: 'GET'
-  });
-});
+const getItem = async () => {
 
-state.email = userData.value.email;
-state.primer_nombre = userData.value.primer_nombre;
-state.segundo_nombre = userData.value.segundo_nombre;
-state.primer_apellido = userData.value.primer_apellido;
-state.segundo_apellido = userData.value.segundo_apellido;
+  try {
+
+    let res = await cliente.get(`/api/users/${id}`);
+
+    state.email = res.data.email;
+    state.primer_nombre = res.data.primer_nombre;
+    state.segundo_nombre = res.data.segundo_nombre;
+    state.primer_apellido = res.data.primer_apellido;
+    state.segundo_apellido = res.data.segundo_apellido;
+
+  } catch (e) {
+
+    notifyError('Error', e.message);
+
+  }
+
+};
+
+getItem();
 
 async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
+
   try {
-    const client = useSanctumClient();
 
-    const { data, error, refresh } = await useAsyncData('updateUser', () =>
-        client(`/api/users/${parametro}`, {
-          method: 'PUT',
-          body: state,
-        })
-    );
+    let res = await cliente.put(`/api/users/${id}`, state);
 
-    toast.add({
-      title: 'Usuario Actualizado!',
-      description: data.value.message,
-      icon: 'mdi:account-check',
-    });
+    notifySuccess('Usuario Actualizado', res.message);
 
-    refresh();
     navigateTo('/users');
+
   } catch (e) {
-    toast.add({
-      title: 'Error al actualizar el usuario!',
-      description: e.message,
-      icon: 'mdi:alert-circle',
-    });
+
+    notifyError('Error', e.message);
+
   }
+
 }
 
-// Función para ejecutar el submit programáticamente
+
 function submitForm() {
   if (formRef.value) {
     formRef.value.submit();
@@ -128,7 +127,7 @@ active.value = 'users';
     <template #footer>
       <div>
         <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/users')" />
-        <UButton type="button" label="Guardar" @click="submitForm" /> <!-- Botón que llama al submit programáticamente -->
+        <UButton type="button" label="Guardar" @click="submitForm" />
       </div>
     </template>
   </mi-card>
