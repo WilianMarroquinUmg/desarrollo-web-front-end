@@ -1,27 +1,41 @@
 <script setup lang="ts">
 import Swal from 'sweetalert2';
 
+const cliente = useSanctumRequest();
+
+const toast = useToast()
+
+const users = ref([]);  // Declaramos una referencia para almacenar los usuarios
+const loading = ref(true);  // Estado de carga
+
+const fetchUsers = async () => {
+  try {
+
+    users.value = await cliente.get('/api/users');
+
+  } catch (error) {
+
+    console.log(error.message);
+
+    toast.add({
+      title: 'Error',
+      icon: 'mdi-close-box',
+      color: 'red',
+      description: error.message
+
+    });
+
+  } finally {
+
+    loading.value = false;
+
+  }
+
+};
+
 definePageMeta({
   title: 'Dashboard',
   layout: 'default',
-});
-
-Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#04fa01",
-  cancelButtonColor: "#e62900",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-  }
 });
 
 const active = useState('activeItem');
@@ -34,16 +48,35 @@ const user = useSanctumUser();
   <v-row>
     <v-card>
       <v-card-title>
-        <h2>Bienvenido <span v-text="user?.nombre_completo"></span> </h2>
+        <h2>Bienvenido <span v-text="user?.nombre_completo"></span></h2>
       </v-card-title>
       <v-card-text>
-        <v-btn @click="showSwal">Mostrar Alerta</v-btn>
-      </v-card-text>
-    </v-card>
+        <!-- Muestra un mensaje mientras se cargan los usuarios -->
+        <div v-if="loading">Cargando usuarios...</div>
+        <div v-else>
+          <ul>
+            <!-- Itera sobre los usuarios obtenidos -->
+            <li v-for="user in users" :key="user.id">{{ user.name }} ({{ user.email }})</li>
+          </ul>
+        </div>
 
+        <UButton
+            icon="i-heroicons-pencil-square"
+            size="sm"
+            color="pink"
+            variant="solid"
+            label="Obtener Users"
+            :trailing="false"
+            @click="fetchUsers"
+        />
+
+      </v-card-text>
+
+
+    </v-card>
   </v-row>
 </template>
 
 <style scoped>
-
+/* Estilos personalizados */
 </style>
