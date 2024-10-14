@@ -36,7 +36,7 @@ getUsers();
 
 const deleteUser = async (id: number) => {
 
-  if (await AlertCuestion('¿Estas seguro de eliminar este usuario?')) {
+  if ((await AlertCuestion('¿Estas seguro de eliminar este usuario?')).isConfirmed) {
 
     try {
 

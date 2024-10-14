@@ -23,6 +23,7 @@ const state = reactive({
   segundo_nombre: undefined,
   primer_apellido: undefined,
   segundo_apellido: undefined,
+  nombre_completo: undefined,
   password: undefined,
   password_confirmation: undefined,
 });
@@ -42,6 +43,7 @@ const getItem = async () => {
     state.segundo_nombre = res.data.segundo_nombre;
     state.primer_apellido = res.data.primer_apellido;
     state.segundo_apellido = res.data.segundo_apellido;
+    state.nombre_completo = res.data.nombre_completo;
 
   } catch (e) {
 
@@ -84,7 +86,7 @@ active.value = 'users';
 <template>
   <mi-card borderColor="#e74c3c">
     <template #header>
-      <h1>Editar el usuario: {{ state.primer_nombre + " " + state.primer_apellido }}</h1>
+      <h1>Editar el usuario: {{ state.nombre_completo }}</h1>
     </template>
 
     <UForm
