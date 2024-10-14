@@ -2,7 +2,7 @@
 import {ref} from 'vue';
 import MiCard from "~/components/personalized/MiCard.vue";
 
-const {AlertCuestion} = useSweetAlert2();
+const { AlertCuestion } = useSweetAlert2();
 
 const cliente = useSanctumRequest();
 
@@ -90,6 +90,7 @@ active.value = 'users';
                 color="blue"
                 variant="solid"
                 class="mr-1"
+                :to="`/users/show/${props.row.id}`"
             />
             <UButton
                 icon="i-heroicons-pencil-square"

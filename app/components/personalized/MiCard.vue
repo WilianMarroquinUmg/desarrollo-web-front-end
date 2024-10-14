@@ -45,6 +45,8 @@ defineProps({
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
   margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .card-body {
