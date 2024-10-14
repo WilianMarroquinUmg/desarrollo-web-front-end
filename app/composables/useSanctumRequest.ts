@@ -18,7 +18,7 @@ export const useSanctumRequest = () => {
 
             }
 
-            return data.value.data;
+            return data.value;
 
         } catch (e) {
 

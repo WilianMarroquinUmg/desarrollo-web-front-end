@@ -20,7 +20,9 @@ const getUsers = async () => {
 
   try {
 
-    users.value = await cliente.get('/api/users');
+    let res  = await cliente.get('/api/users');
+
+    users.value = res.data
 
   } catch (e) {
 

@@ -1,75 +1,48 @@
-<script lang="ts">
-import { defineComponent, reactive } from 'vue';
+<script lang="ts" setup>
+import { reactive, toRefs } from 'vue';
 import { object, string, InferType } from 'yup';
 import type { FormSubmitEvent } from '#ui/types';
+const {notifySuccess, notifyError} = useToastNotifications();
 
-const toast = useToast();
-export default defineComponent({
-  name: 'FormComponent',
-  data() {
-    return {
-      schema: object({
-        primer_nombre: string().required('Required'),
-        segundo_nombre: string().required('Required'),
-        primer_apellido: string().required('Required'),
-        segundo_apellido: string().required('Required'),
-        email: string().email('Invalid email').required('Required'),
-        password: string().min(8, 'Must be at least 8 characters').required('Required'),
-        password_confirmation: string().required('Required')
-      }),
-      state: reactive({
-        email: undefined,
-        password: undefined,
-        primer_nombre: undefined,
-        segundo_nombre: undefined,
-        primer_apellido: undefined,
-        segundo_apellido: undefined,
-        password_confirmation: undefined
-
-      })
-    };
-  },
-  methods: {
-    async onSubmit(event: FormSubmitEvent<InferType<typeof this.schema>>) {
-
-      try {
-        const client = useSanctumClient();
-
-        const { data, error, refresh } = await useAsyncData('createUser', () =>
-            client('/api/users', {
-              method: 'POST',
-              body: this.state
-            })
-        );
-
-        if (error.value) {
-          throw new Error(error.value.data.message);
-        }
-
-        toast.add({
-          title: "Usuario Creado! ",
-          description: data.value.message,
-          icon: 'mdi:account-check',
-        });
-
-        refresh();
-
-        this.$router.push('/users');
-
-      } catch (e) {
-
-        toast.add({
-          title: "Error al intentar crear el usuario",
-          description: e.message,
-          icon: 'mdi:account-remove',
-          color: 'red'
-        });
-
-      }
-
-    }
-  }
+const schema = object({
+  primer_nombre: string().required('Required'),
+  segundo_nombre: string().required('Required'),
+  primer_apellido: string().required('Required'),
+  segundo_apellido: string().required('Required'),
+  email: string().email('Invalid email').required('Required'),
+  password: string().min(8, 'Must be at least 8 characters').required('Required'),
+  password_confirmation: string().required('Required')
 });
+
+const state = reactive({
+  email: undefined,
+  password: undefined,
+  primer_nombre: undefined,
+  segundo_nombre: undefined,
+  primer_apellido: undefined,
+  segundo_apellido: undefined,
+  password_confirmation: undefined
+});
+
+const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
+
+  try {
+
+    const client = useSanctumRequest();
+
+    let res = await client.post('/api/users', state);
+
+    notifySuccess('Usuario Creado', res.data.message);
+
+    navigateTo('/users');
+
+  } catch (e) {
+
+    notifyError('Error', e.message);
+
+  }
+
+};
 </script>
 
 <template>
@@ -115,5 +88,4 @@ export default defineComponent({
       </div>
     </UForm>
   </UCard>
-
 </template>
