@@ -8,21 +8,21 @@ const cliente = useSanctumRequest();
 
 const {notifySuccess, notifyError} = useToastNotifications();
 
-const usersColumns = ref([
+const columnsItems = ref([
   {label: 'Nombre Completo', field: 'nombre_completo'},
   {label: 'Email', field: 'email'},
   {label: 'Opciones', field: 'opciones', thClass: 'text-center', tdClass: 'text-center', width: '150px'},
 ]);
 
-let users = ref([]);
+let items = ref([]);
 
-const getUsers = async () => {
+const getItems = async () => {
 
   try {
 
     let res  = await cliente.get('/api/users');
 
-    users.value = res.data
+    items.value = res.data
 
   } catch (e) {
 
@@ -32,9 +32,9 @@ const getUsers = async () => {
 
 }
 
-getUsers();
+getItems();
 
-const deleteUser = async (id: number) => {
+const deleteItem = async (id: number) => {
 
   if ((await AlertCuestion('¿Estas seguro de eliminar este usuario?')).isConfirmed) {
 
@@ -44,7 +44,7 @@ const deleteUser = async (id: number) => {
 
       notifySuccess('Usuario Elimiado', res.data.message);
 
-      await getUsers();
+      await getItems();
 
     } catch (e) {
 
@@ -68,7 +68,7 @@ active.value = 'users';
         size="sm"
         color="primary"
         variant="solid"
-        label="Nuevo Usuario"
+        label="Nuevo"
         :trailing="false"
         to="/users/create"
     />
@@ -76,8 +76,8 @@ active.value = 'users';
 
   <mi-card borderColor="#e74c3c">
     <vue-good-table
-        :columns="usersColumns"
-        :rows="users"
+        :columns="columnsItems"
+        :rows="items"
         :search-options="{ enabled: true }"
         :pagination-options="{ enabled: true, perPage: 5 }"
     >
@@ -105,7 +105,7 @@ active.value = 'users';
                 size="sm"
                 color="red"
                 variant="solid"
-                @click="deleteUser(props.row.id)"
+                @click="deleteItem(props.row.id)"
                 class="mr-1"
             />
 
