@@ -1,38 +1,69 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import MiCard from "~/components/personalized/MiCard.vue";
-import {useAsyncData} from '#app';
+import {useToastNotifications} from "~/composables/toastNotifications";
+import Swal from 'sweetalert2';
 
-import {useRouter} from 'vue-router';
+const cliente = useSanctumRequest();
+
+const { notifySuccess, notifyError } = useToastNotifications();
 
 const usersColumns = ref([
   {label: 'Nombre Completo', field: 'nombre_completo'},
   {label: 'Email', field: 'email'},
-  {label: 'Opciones', field: 'opciones'},
+  {label: 'Opciones', field: 'opciones', thClass: 'text-center', tdClass: 'text-center', width: '150px'},
 ]);
 
-const users = ref([]);
+let users = ref([]);
 
-let cliente = useSanctumClient();
+const getUsers = async () => {
 
-let {data: userData} = await useAsyncData('getUsers', () => {
-  return cliente('/api/users', {
-    method: 'GET'
-  });
-});
+  try {
 
-users.value = userData.value;
+    users.value = await cliente.get('/api/users');
+
+  } catch (e) {
+
+    console.log(e.message);
+
+  }
+
+}
+
+getUsers();
+
 
 const deleteUser = async (id: number) => {
-  let {data: deletedUser} = await useAsyncData('deleteUser', () => {
-    return cliente(`/api/users/${id}`, {
-      method: 'DELETE'
-    });
+
+  const result = await Swal.fire({
+    title: '¿Estás seguro?',
+    text: "¡No podrás revertir esto!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#e1f6e1',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, borrarlo!',
+    cancelButtonText: 'Cancelar',
   });
 
-  if (deletedUser.value) {
-    users.value = users.value.filter((user: any) => user.id !== id);
+  if (result.isConfirmed) {
+
+    try {
+
+      let res = await cliente.delete(`/api/users/${id}`);
+
+      notifySuccess('Usuario Elimiado', res.data.message);
+
+      await getUsers();
+
+    } catch (e) {
+
+      notifyError('Error', e.message);
+
+    }
+
   }
+
 };
 
 const editUser = (id: number) => {
@@ -74,19 +105,23 @@ active.value = 'users';
                 size="sm"
                 color="blue"
                 variant="solid"
+                class="mr-1"
             />
             <UButton
-                  icon="i-heroicons-pencil-square"
-                  size="sm"
-                  color="yellow"
-                  variant="solid"
-                  @click="editUser(props.row.id)"
-              />
+                icon="i-heroicons-pencil-square"
+                size="sm"
+                color="yellow"
+                variant="solid"
+                @click="editUser(props.row.id)"
+                class="mr-1"
+            />
             <UButton
                 icon="i-heroicons-trash"
                 size="sm"
                 color="red"
                 variant="solid"
+                @click="deleteUser(props.row.id)"
+                class="mr-1"
             />
 
 
