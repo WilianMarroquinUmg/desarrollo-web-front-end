@@ -71,7 +71,6 @@ async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
 
 }
 
-
 function submitForm() {
   if (formRef.value) {
     formRef.value.submit();
