@@ -91,8 +91,13 @@ const askQuestions = async () => {
         const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo);
 
+
         const showTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'showTemplate.vue'), 'utf-8')
-            .replace(/{{ model }}/g, modelo);
+            .replace(/{{ model }}/g, modelo)
+            .replace(/{{ fields }}/g, columnasJSON)
+            .replace(/{{ directory }}/g, directory.split('pages/')[1] )
+            .replace(/{{ url }}/g, url);
+
 
         fs.writeFileSync(path.join(directory, 'index.vue'), listTemplate);
         fs.writeFileSync(path.join(directory, 'create.vue'), createTemplate);
