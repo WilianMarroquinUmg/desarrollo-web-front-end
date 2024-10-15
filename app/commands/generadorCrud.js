@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
+import {object, string} from "yup";
 
 const __dirname = path.resolve();
 
@@ -14,7 +15,7 @@ const question = (query) => {
     return new Promise((resolve) => rl.question(query, resolve));
 };
 
-const formatearCampos = (campos) => {
+const formatearCamposTable = (campos) => {
     return campos.map(campo => {
         return {
             label: campo,
@@ -22,6 +23,31 @@ const formatearCampos = (campos) => {
         };
     });
 };
+const formatearCamposFormCreate = (campos) => {
+
+    let state = {};
+
+    campos.forEach(campo => {
+        state[campo] = 'undefined';
+    });
+
+    // Convierte el objeto en un string formateado para Vue
+    const stateText = `{ ${Object.entries(state).map(([key, value]) => `${key}: ${value}`).join(', ')} }`;
+    return stateText;
+
+}
+
+const objectSchema = (campos) => {
+    let esquema = {};
+
+    campos.forEach(campo => {
+        esquema[campo] = 'string().required("Este campo es requerido")';
+    });
+
+    // Convierte el objeto a un string que Vue pueda interpretar correctamente
+    const schemaText = `object({ ${Object.entries(esquema).map(([key, value]) => `${key}: ${value}`).join(', ')} })`;
+    return schemaText;
+}
 
 const askQuestions = async () => {
     try {
@@ -36,9 +62,6 @@ const askQuestions = async () => {
 
         const campos = camposInput.split(',').map(campo => campo.trim());
 
-        campos.push('opciones');
-        console.log(campos);
-
         const modeloMinusculas = modelo.toLowerCase();
 
         const directory = `./app/pages/${pluralizar(modeloMinusculas)}`;
@@ -47,17 +70,23 @@ const askQuestions = async () => {
             fs.mkdirSync(directory, { recursive: true });
         }
 
-        const columnas = formatearCampos(campos);
+        const columnas = formatearCamposTable(campos);
         const columnasJSON = JSON.stringify(columnas, null, 2);
+        console.log(columnasJSON);
 
         const listTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'indexTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo)
-            .replace(/{{ Reemplazame }}/g, columnasJSON)
+            .replace(/{{ fields }}/g, columnasJSON)
             .replace(/{{ url }}/g, url)
             .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const createTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'createTemplate.vue'), 'utf-8')
-            .replace(/{{ model }}/g, modelo);
+            .replace(/{{ model }}/g, modelo)
+            .replace(/{{ camposCreate }}/g, formatearCamposFormCreate(campos))
+            .replace(/{{ validacionesCreate }}/g, objectSchema(campos))
+            .replace(/{{ url }}/g, url)
+            .replace(/{{ fields }}/g, columnasJSON)
+            .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo);

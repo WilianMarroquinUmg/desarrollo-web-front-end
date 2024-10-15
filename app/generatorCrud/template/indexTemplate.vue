@@ -8,7 +8,15 @@ const cliente = useSanctumRequest();
 
 const {notifySuccess, notifyError} = useToastNotifications();
 
-const columnsItems = ref({{ Reemplazame }} );
+const columnsItems = ref({{ fields }} );
+
+columnsItems.value.push({
+  label: 'Opciones',
+  field: 'opciones',
+  filterable: false,
+  sortable: false,
+  width: '150px'
+});
 
 let items = ref([]);
 
