@@ -32,7 +32,7 @@ const sidebarItem: menu[] = [
             {
                 title: 'Users',
                 icon: 'mdi-account-multiple',
-                value: 'users',
+                value: 'User',
                 to: '/users',
             },
         ],
@@ -44,10 +44,10 @@ const sidebarItem: menu[] = [
         to: '/icons',
     },
     {
-        title: 'Prueba',
+        title: 'Direcciones',
         icon: 'iconsminds-three-arrow-fork',
-        value: 'prueba',
-        to: '/prueba',
+        value: 'Direccion',
+        to: '/direcciones',
     }
 
 ];

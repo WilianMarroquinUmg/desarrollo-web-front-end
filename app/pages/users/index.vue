@@ -57,7 +57,7 @@ const deleteItem = async (id: number) => {
 };
 
 const active = useState('activeItem');
-active.value = 'users';
+active.value = 'User';
 
 </script>
 

@@ -31,13 +31,13 @@ const getItems = async () => {
 getItems();
 const deleteItem = async (id: number) => {
 
-  if ((await AlertCuestion('¿Estas seguro de eliminar este usuario?')).isConfirmed) {
+  if ((await AlertCuestion('¿Estas seguro de eliminar est@ {{ model }}?')).isConfirmed) {
 
     try {
 
       let res = await cliente.delete('{{ url }}/' + id);
 
-      notifySuccess('Usuario Elimiado', res.data.message);
+      notifySuccess('{{ model }} Elimiado', res.data.message);
 
       await getItems();
 
@@ -52,7 +52,7 @@ const deleteItem = async (id: number) => {
 };
 
 const active = useState('activeItem');
-active.value = 'users';
+active.value = '{{ model }}';
 
 </script>
 
@@ -65,7 +65,7 @@ active.value = 'users';
         variant="solid"
         label="Nuevo"
         :trailing="false"
-        to="/users/create"
+        to="{{ directory }}/create"
     />
   </div>
 
@@ -85,14 +85,14 @@ active.value = 'users';
                 color="blue"
                 variant="solid"
                 class="mr-1"
-                :to=" '{{ url }}/show/' + props.row.id "
+                :to=" '{{ directory }}/show/' + props.row.id "
             />
             <UButton
                 icon="i-heroicons-pencil-square"
                 size="sm"
                 color="yellow"
                 variant="solid"
-                :to=" '{{ url }}/edit/' + props.row.id "
+                :to=" '{{ directory }}/edit/' + props.row.id "
                 class="mr-1"
             />
             <UButton

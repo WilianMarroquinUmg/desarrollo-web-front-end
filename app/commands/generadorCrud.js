@@ -36,22 +36,25 @@ const askQuestions = async () => {
 
         const campos = camposInput.split(',').map(campo => campo.trim());
 
+        campos.push('opciones');
         console.log(campos);
 
         const modeloMinusculas = modelo.toLowerCase();
-        const directory = `./app/pages/${modeloMinusculas}`;
+
+        const directory = `./app/pages/${pluralizar(modeloMinusculas)}`;
 
         if (!fs.existsSync(directory)) {
             fs.mkdirSync(directory, { recursive: true });
         }
 
         const columnas = formatearCampos(campos);
-        const columnasJSON = JSON.stringify(columnas, null, 2); // Convertir a formato JSON
+        const columnasJSON = JSON.stringify(columnas, null, 2);
 
         const listTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'indexTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo)
             .replace(/{{ Reemplazame }}/g, columnasJSON)
-            .replace(/{{ url }}/g, url);
+            .replace(/{{ url }}/g, url)
+            .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const createTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'createTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo);
@@ -89,5 +92,25 @@ const askQuestions = async () => {
         rl.close();
     }
 };
+
+function pluralizar(palabra) {
+    if (!palabra) return "";
+
+    const vocales = ['a', 'e', 'i', 'o', 'u'];
+    const ultimaLetra = palabra.slice(-1).toLowerCase();
+    const penultimaLetra = palabra.slice(-2, -1).toLowerCase();
+
+    if (vocales.includes(ultimaLetra)) {
+        return palabra + 's';
+    } else if (ultimaLetra === 'z') {
+        return palabra.slice(0, -1) + 'ces';
+    } else if (ultimaLetra === 'n' || ultimaLetra === 'r') {
+        return palabra + 'es';
+    } else if (ultimaLetra === 'l' && penultimaLetra === 'e') {
+        return palabra + 'es';
+    } else {
+        return palabra + 'es';
+    }
+}
 
 askQuestions();
