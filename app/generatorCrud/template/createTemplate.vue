@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import {reactive, ref, toRefs} from 'vue';
 import { object, string, InferType } from 'yup';
 import type { FormSubmitEvent } from '#ui/types';
 const {notifySuccess, notifyError} = useToastNotifications();
@@ -10,6 +10,7 @@ const state = reactive( {{ camposCreate }}  );
 
 const fiels = Object.keys(state);
 
+const formRef = ref();
 const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
   try {
@@ -30,6 +31,20 @@ const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
 };
 
+const formatearCampoLabel = (campo) => {
+
+  let campoFormateado = campo.replace(/([A-Z])/g, ' $1').trim();
+
+  return campoFormateado.charAt(0).toUpperCase() + campoFormateado.slice(1);
+
+}
+
+function submitForm() {
+  if (formRef.value) {
+    formRef.value.submit();
+  }
+}
+
 const active = useState('activeItem');
 active.value = '{{ model }}';
 
@@ -41,23 +56,49 @@ active.value = '{{ model }}';
            :state="state"
            class="space-y-4"
            @submit="onSubmit"
+           ref="formRef"
     >
 
       <UFormGroup
           v-for=" (field, index) in fiels"
           :key="index"
-          :label="field"
+          :label="formatearCampoLabel(field)+':'"
           :name="field"
       >
         <UInput v-model="state[field]" />
       </UFormGroup>
 
-
-      <div class="buttons">
-        <UButton type="submit">
-          Submit
-        </UButton>
-      </div>
     </UForm>
+
+    <template #footer>
+      <div>
+        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')" />
+        <UButton type="button" label="Guardar" @click="submitForm" />
+      </div>
+    </template>
+
   </UCard>
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

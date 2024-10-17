@@ -38,9 +38,6 @@ active.value = '{{ model }}';
 <template>
 
   <mi-card borderColor="#e74c3c">
-    <template #header>
-      <h1>{{ item.nombre_completo }}</h1>
-    </template>
 
     <div class="grid grid-cols-2 gap-4">
 

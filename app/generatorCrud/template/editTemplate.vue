@@ -43,6 +43,13 @@ const getItem = async () => {
 
 getItem();
 
+const formatearCampoLabel = (campo) => {
+
+  let campoFormateado = campo.replace(/([A-Z])/g, ' $1').trim();
+
+  return campoFormateado.charAt(0).toUpperCase() + campoFormateado.slice(1);
+
+}
 
 async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
 
@@ -82,24 +89,26 @@ active.value = '{{ model }}';
            :state="state"
            class="space-y-4"
            @submit="onSubmit"
+           ref="formRef"
     >
 
       <UFormGroup
           v-for=" (field, index) in Object.keys(state)"
           :key="index"
-          :label="field"
+          :label="formatearCampoLabel(field) + ':'"
           :name="field"
       >
         <UInput v-model="state[field]" />
       </UFormGroup>
-
-
-      <div class="buttons">
-        <UButton type="submit">
-          Submit
-        </UButton>
-      </div>
     </UForm>
+
+    <template #footer>
+      <div>
+        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')" />
+        <UButton type="button" label="Guardar" @click="submitForm" />
+      </div>
+    </template>
+
 
   </mi-card>
 </template>

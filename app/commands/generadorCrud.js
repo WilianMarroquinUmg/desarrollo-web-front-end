@@ -18,7 +18,7 @@ const question = (query) => {
 const formatearCamposTable = (campos) => {
     return campos.map(campo => {
         return {
-            label: campo,
+            label: formatearCampoLabel(campo),
             field: campo,
         };
     });
@@ -151,3 +151,12 @@ function pluralizar(palabra) {
 }
 
 askQuestions();
+
+
+function formatearCampoLabel(campo){
+
+    let campoFormateado = campo.replace(/([A-Z])/g, ' $1').trim();
+
+    return campoFormateado.charAt(0).toUpperCase() + campoFormateado.slice(1);
+
+}
