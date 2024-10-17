@@ -22,11 +22,14 @@ const getItem = async () => {
 
     let res = await cliente.get(`{{ url }}/${id}`);
 
-
     let objetKeys = Object.keys(state);
 
     objetKeys.forEach(key => {
+
+      console.log(res.data[key])
+
       state[key] = res.data[key];
+
     });
 
 
@@ -40,7 +43,6 @@ const getItem = async () => {
 
 getItem();
 
-const fiels = Object.keys( {{ fields }} );
 
 async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
 
@@ -48,7 +50,7 @@ async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
 
     let res = await cliente.put(`{{ url }}/${id}`, state);
 
-    notifySuccess('{{ model }} Cread@', res.data.message);
+    notifySuccess('{{ model }} Actualizad@', res.data.message);
 
     navigateTo('/{{ directory }}');
 
@@ -83,7 +85,7 @@ active.value = '{{ model }}';
     >
 
       <UFormGroup
-          v-for=" (field, index) in fiels"
+          v-for=" (field, index) in Object.keys(state)"
           :key="index"
           :label="field"
           :name="field"
