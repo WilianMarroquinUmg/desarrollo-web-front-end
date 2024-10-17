@@ -72,7 +72,6 @@ const askQuestions = async () => {
 
         const columnas = formatearCamposTable(campos);
         const columnasJSON = JSON.stringify(columnas, null, 2);
-        console.log(columnasJSON);
 
         const listTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'indexTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo)
@@ -89,8 +88,12 @@ const askQuestions = async () => {
             .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8')
-            .replace(/{{ model }}/g, modelo);
-
+            .replace(/{{ model }}/g, modelo)
+            .replace(/{{ camposCreate }}/g, formatearCamposFormCreate(campos))
+            .replace(/{{ validacionesCreate }}/g, objectSchema(campos))
+            .replace(/{{ url }}/g, url)
+            .replace(/{{ fields }}/g, columnasJSON)
+            .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const showTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'showTemplate.vue'), 'utf-8')
             .replace(/{{ model }}/g, modelo)

@@ -30,6 +30,9 @@ const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
 };
 
+const active = useState('activeItem');
+active.value = '{{ model }}';
+
 </script>
 
 <template>
