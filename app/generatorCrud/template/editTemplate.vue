@@ -78,23 +78,7 @@ function submitForm() {
 }
 
 
-const valoresInputFormulario = () => {
-  let obj = Object.keys(state);
-
-  let tipoInput = [];
-
-  obj.forEach(key => {
-    tipoInput.push({
-      label: formatearCampoLabel(key),
-      type: "text",
-      key: key
-    });
-  });
-
-  return tipoInput;
-}
-
-const valoresInputFormulario1 = ref(valoresInputFormulario());
+const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
 
 
 const active = useState('activeItem');

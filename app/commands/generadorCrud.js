@@ -22,18 +22,6 @@ const formatearCamposTable = (campos) => {
         };
     });
 };
-// const formatearCamposFormCreate = (campos) => {
-//
-//     let state = {};
-//
-//     campos.forEach(campo => {
-//         state[campo] = 'undefined';
-//     });
-//
-//     const stateText = `{ ${Object.entries(state).map(([key, value]) => `${key}: ${value}`).join(', ')} }`;
-//     return stateText;
-//
-// }
 
 const formatearCamposFormCreate = (campos) => {
 
@@ -47,18 +35,6 @@ const formatearCamposFormCreate = (campos) => {
     return stateText;
 
 }
-
-
-// const objectSchema = (campos) => {
-//     let esquema = {};
-//
-//     campos.forEach(campo => {
-//         esquema[campo] = 'string().required("Este campo es requerido")';
-//     });
-//
-//     const schemaText = `object({ ${Object.entries(esquema).map(([key, value]) => `${key}: ${value}`).join(', ')} })`;
-//     return schemaText;
-// }
 
 const objectSchema = (campos) => {
     let esquema = {};
@@ -107,6 +83,7 @@ const askQuestions = async () => {
             .replace(/{{ validacionesCreate }}/g, objectSchema(campos))
             .replace(/{{ url }}/g, url)
             .replace(/{{ fields }}/g, columnasJSON)
+
             .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8')
@@ -115,6 +92,7 @@ const askQuestions = async () => {
             .replace(/{{ validacionesCreate }}/g, objectSchema(campos))
             .replace(/{{ url }}/g, url)
             .replace(/{{ fields }}/g, columnasJSON)
+            .replace(/{{ valoresInputFormulario }}/g, tiposInputFormulario(campos))
             .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const showTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'showTemplate.vue'), 'utf-8')
@@ -183,4 +161,22 @@ function formatearCampoLabel(str){
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
+}
+
+
+const tiposInputFormulario = (campos) => {
+    let obj = Object.keys(campos);
+
+    let tipoInput = [];
+
+
+    obj.forEach(key => {
+        tipoInput.push({
+            label: formatearCampoLabel(campos[key]),
+            type: "text",
+            key: campos[key]
+        });
+    });
+
+    return JSON.stringify(tipoInput, null, 2);
 }
