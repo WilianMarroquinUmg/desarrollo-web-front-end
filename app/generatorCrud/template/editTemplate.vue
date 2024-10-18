@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import MiCard from '~/components/personalized/MiCard.vue';
-import { object, string, InferType } from 'yup';
-import { ref, reactive } from 'vue';
-import type { FormSubmitEvent } from '#ui/types';
+import {object, string, InferType} from 'yup';
+import {ref, reactive} from 'vue';
+import type {FormSubmitEvent} from '#ui/types';
+
 const {notifySuccess, notifyError} = useToastNotifications();
 
 const route = useRoute();
@@ -75,6 +76,26 @@ function submitForm() {
   }
 }
 
+
+const valoresInputFormulario = () => {
+  let obj = Object.keys(state);
+
+  let tipoInput = [];
+
+  obj.forEach(key => {
+    tipoInput.push({
+      label: formatearCampoLabel(key),
+      type: "text",
+      key: key
+    });
+  });
+
+  return tipoInput;
+}
+
+const valoresInputFormulario1 = ref(valoresInputFormulario());
+
+
 const active = useState('activeItem');
 active.value = '{{ model }}';
 </script>
@@ -92,20 +113,30 @@ active.value = '{{ model }}';
            ref="formRef"
     >
 
+
       <UFormGroup
-          v-for=" (field, index) in Object.keys(state)"
+          v-for=" (field, index) in valoresInputFormulario1"
           :key="index"
-          :label="formatearCampoLabel(field) + ':'"
-          :name="field"
+          :label="field.label + ':'"
+          :name="field.key"
       >
-        <UInput v-model="state[field]" />
+
+        <UInput v-if="field.type == 'text'"
+                v-model="state[field.key]"
+        />
+
+        <UCheckbox v-if="field.type == 'checkbox'"
+                   v-model="state[field.key]"
+                   name="notifications"
+        />
+
       </UFormGroup>
     </UForm>
 
     <template #footer>
       <div>
-        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')" />
-        <UButton type="button" label="Guardar" @click="submitForm" />
+        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')"/>
+        <UButton type="button" label="Guardar" @click="submitForm"/>
       </div>
     </template>
 

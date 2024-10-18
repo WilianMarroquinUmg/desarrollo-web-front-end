@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
-import {object, string} from "yup";
 
 const __dirname = path.resolve();
 
@@ -31,7 +30,6 @@ const formatearCamposFormCreate = (campos) => {
         state[campo] = 'undefined';
     });
 
-    // Convierte el objeto en un string formateado para Vue
     const stateText = `{ ${Object.entries(state).map(([key, value]) => `${key}: ${value}`).join(', ')} }`;
     return stateText;
 
@@ -44,7 +42,6 @@ const objectSchema = (campos) => {
         esquema[campo] = 'string().required("Este campo es requerido")';
     });
 
-    // Convierte el objeto a un string que Vue pueda interpretar correctamente
     const schemaText = `object({ ${Object.entries(esquema).map(([key, value]) => `${key}: ${value}`).join(', ')} })`;
     return schemaText;
 }
