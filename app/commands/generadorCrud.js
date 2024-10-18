@@ -22,6 +22,19 @@ const formatearCamposTable = (campos) => {
         };
     });
 };
+// const formatearCamposFormCreate = (campos) => {
+//
+//     let state = {};
+//
+//     campos.forEach(campo => {
+//         state[campo] = 'undefined';
+//     });
+//
+//     const stateText = `{ ${Object.entries(state).map(([key, value]) => `${key}: ${value}`).join(', ')} }`;
+//     return stateText;
+//
+// }
+
 const formatearCamposFormCreate = (campos) => {
 
     let state = {};
@@ -30,10 +43,22 @@ const formatearCamposFormCreate = (campos) => {
         state[campo] = 'undefined';
     });
 
-    const stateText = `{ ${Object.entries(state).map(([key, value]) => `${key}: ${value}`).join(', ')} }`;
+    const stateText = `{ ${Object.entries(state).map(([key, value]) => `${key}: ${value}`).join(',\n')} }`; // Agrega un salto de línea aquí
     return stateText;
 
 }
+
+
+// const objectSchema = (campos) => {
+//     let esquema = {};
+//
+//     campos.forEach(campo => {
+//         esquema[campo] = 'string().required("Este campo es requerido")';
+//     });
+//
+//     const schemaText = `object({ ${Object.entries(esquema).map(([key, value]) => `${key}: ${value}`).join(', ')} })`;
+//     return schemaText;
+// }
 
 const objectSchema = (campos) => {
     let esquema = {};
@@ -42,7 +67,7 @@ const objectSchema = (campos) => {
         esquema[campo] = 'string().required("Este campo es requerido")';
     });
 
-    const schemaText = `object({ ${Object.entries(esquema).map(([key, value]) => `${key}: ${value}`).join(', ')} })`;
+    const schemaText = `object({ ${Object.entries(esquema).map(([key, value]) => `${key}: ${value}`).join(',\n')} })`; // Agrega un salto de línea aquí
     return schemaText;
 }
 

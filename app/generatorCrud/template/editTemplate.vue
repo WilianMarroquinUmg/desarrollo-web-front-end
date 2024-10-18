@@ -152,8 +152,19 @@ active.value = '{{ model }}';
 
     <template #footer>
       <div>
-        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')"/>
-        <UButton type="button" label="Guardar" @click="submitForm"/>
+        <UButton type="button"
+                 color="red"
+                 icon="arrow-right-end-on-rectangle"
+                 variant="solid"
+                 label="Regresar"
+                 @click="navigateTo('/{{ directory }}')"
+                 class="mr-1"
+        />
+        <UButton type="button"
+                 label="Guardar"
+                 @click="submitForm"
+                 icon="i-heroicons-save"
+        />
       </div>
     </template>
 

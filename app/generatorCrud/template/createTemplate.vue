@@ -2,6 +2,7 @@
 import {reactive, ref, toRefs} from 'vue';
 import { object, string, InferType } from 'yup';
 import type { FormSubmitEvent } from '#ui/types';
+import MiCard from "~/components/personalized/MiCard.vue";
 const {notifySuccess, notifyError} = useToastNotifications();
 
 const schema = {{ validacionesCreate }} ;
@@ -53,7 +54,7 @@ active.value = '{{ model }}';
 </script>
 
 <template>
-  <UCard>
+  <mi-card>
     <UForm :schema="schema"
            :state="state"
            class="space-y-4"
@@ -88,33 +89,22 @@ active.value = '{{ model }}';
 
     <template #footer>
       <div>
-        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')" />
-        <UButton type="button" label="Guardar" @click="submitForm" />
+        <UButton type="button"
+                 color="red"
+                 variant="solid"
+                 label="Regresar"
+                  icon="arrow-right-end-on-rectangle"
+                 @click="navigateTo('/{{ directory }}')"
+                 class="mr-1"
+        />
+        <UButton type="button"
+                 label="Guardar"
+                 icon="i-heroicons-save"
+                 @click="submitForm"
+        />
       </div>
     </template>
 
-  </UCard>
+  </mi-card>
 </template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
