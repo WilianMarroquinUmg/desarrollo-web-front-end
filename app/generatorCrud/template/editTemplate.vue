@@ -44,12 +44,13 @@ const getItem = async () => {
 
 getItem();
 
-const formatearCampoLabel = (campo) => {
+const formatearCampoLabel = (str) => {
 
-  let campoFormateado = campo.replace(/([A-Z])/g, ' $1').trim();
-
-  return campoFormateado.charAt(0).toUpperCase() + campoFormateado.slice(1);
-
+  return str
+      .split('_')
+      .filter(word => word.toLowerCase() !== 'id')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 }
 
 async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
@@ -112,25 +113,41 @@ active.value = '{{ model }}';
            @submit="onSubmit"
            ref="formRef"
     >
+      <div class="grid grid-cols-2 gap-4">
+
+        <template v-for=" (field, index) in valoresInputFormulario1"
+                  :key="index">
+
+          <div >
+
+            <div class="flex flex-col space-y-2">
+              <UFormGroup
 
 
-      <UFormGroup
-          v-for=" (field, index) in valoresInputFormulario1"
-          :key="index"
-          :label="field.label + ':'"
-          :name="field.key"
-      >
 
-        <UInput v-if="field.type == 'text'"
-                v-model="state[field.key]"
-        />
+                  :label="field.label + ':'"
+                  :name="field.key"
+              >
 
-        <UCheckbox v-if="field.type == 'checkbox'"
-                   v-model="state[field.key]"
-                   name="notifications"
-        />
+                <UInput v-if="field.type == 'text'"
+                        v-model="state[field.key]"
+                />
 
-      </UFormGroup>
+                <UCheckbox v-if="field.type == 'checkbox'"
+                           v-model="state[field.key]"
+                           name="notifications"
+                />
+
+              </UFormGroup>
+            </div>
+
+
+          </div>
+
+        </template>
+      </div>
+
+
     </UForm>
 
     <template #footer>

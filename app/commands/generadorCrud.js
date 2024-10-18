@@ -150,10 +150,12 @@ function pluralizar(palabra) {
 askQuestions();
 
 
-function formatearCampoLabel(campo){
+function formatearCampoLabel(str){
 
-    let campoFormateado = campo.replace(/([A-Z])/g, ' $1').trim();
-
-    return campoFormateado.charAt(0).toUpperCase() + campoFormateado.slice(1);
+    return str
+        .split('_')
+        .filter(word => word.toLowerCase() !== 'id')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
 }

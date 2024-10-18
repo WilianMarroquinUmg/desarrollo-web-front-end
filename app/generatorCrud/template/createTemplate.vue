@@ -31,11 +31,13 @@ const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
 };
 
-const formatearCampoLabel = (campo) => {
+const formatearCampoLabel = (str) => {
 
-  let campoFormateado = campo.replace(/([A-Z])/g, ' $1').trim();
-
-  return campoFormateado.charAt(0).toUpperCase() + campoFormateado.slice(1);
+  return str
+      .split('_')
+      .filter(word => word.toLowerCase() !== 'id')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 
 }
 
@@ -59,14 +61,28 @@ active.value = '{{ model }}';
            ref="formRef"
     >
 
-      <UFormGroup
-          v-for=" (field, index) in fiels"
-          :key="index"
-          :label="formatearCampoLabel(field)+':'"
-          :name="field"
-      >
-        <UInput v-model="state[field]" />
-      </UFormGroup>
+      <div class="grid grid-cols-2 gap-4">
+
+        <template v-for=" (field, index) in fiels"
+                  :key="index"
+        >
+
+          <div class="flex flex-col space-y-2">
+
+            <UFormGroup
+
+                :label="formatearCampoLabel(field)+':'"
+                :name="field"
+            >
+              <UInput v-model="state[field]" />
+            </UFormGroup>
+
+          </div>
+
+        </template>
+      </div>
+
+
 
     </UForm>
 
