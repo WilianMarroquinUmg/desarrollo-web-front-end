@@ -60,8 +60,12 @@ const user = useSanctumUser();
           </ul>
         </div>
 
+
+        <i class="ti ti-a-b-2"></i>
+
+        pencil-square
         <UButton
-            icon="i-heroicons-pencil-square"
+            icon="i-heroicons-bookmark-square"
             size="sm"
             color="pink"
             variant="solid"

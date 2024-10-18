@@ -154,7 +154,7 @@ active.value = '{{ model }}';
       <div>
         <UButton type="button"
                  color="red"
-                 icon="arrow-right-end-on-rectangle"
+                 icon="i-heroicons-arrow-left-end-on-rectangle"
                  variant="solid"
                  label="Regresar"
                  @click="navigateTo('/{{ directory }}')"
@@ -163,7 +163,7 @@ active.value = '{{ model }}';
         <UButton type="button"
                  label="Guardar"
                  @click="submitForm"
-                 icon="i-heroicons-save"
+                 icon="i-heroicons-bookmark-square"
         />
       </div>
     </template>

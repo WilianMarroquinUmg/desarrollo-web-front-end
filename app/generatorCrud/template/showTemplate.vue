@@ -69,7 +69,13 @@ active.value = '{{ model }}';
 
     <template #footer>
       <div>
-        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/{{ directory }}')" />
+        <UButton type="button"
+                 color="red"
+                 icon="i-heroicons-arrow-left-end-on-rectangle"
+                 variant="solid"
+                 label="Regresar"
+                 @click="navigateTo('/{{ directory }}')"
+        />
       </div>
     </template>
   </mi-card>

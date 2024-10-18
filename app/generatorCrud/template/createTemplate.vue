@@ -93,13 +93,13 @@ active.value = '{{ model }}';
                  color="red"
                  variant="solid"
                  label="Regresar"
-                  icon="arrow-right-end-on-rectangle"
+                 icon="i-heroicons-arrow-left-end-on-rectangle"
                  @click="navigateTo('/{{ directory }}')"
                  class="mr-1"
         />
         <UButton type="button"
                  label="Guardar"
-                 icon="i-heroicons-save"
+                 icon="i-heroicons-bookmark-square"
                  @click="submitForm"
         />
       </div>
