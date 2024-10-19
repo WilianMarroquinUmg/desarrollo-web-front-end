@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MiCard from '~/components/personalized/MiCard.vue';
 import {object, string, InferType} from 'yup';
-import {ref, reactive} from 'vue';
+import {ref, reactive, onMounted} from 'vue';
 import type {FormSubmitEvent} from '#ui/types';
 import InputDate from "~/components/personalized/InputDate.vue";
 
@@ -28,9 +28,18 @@ const getItem = async () => {
 
     objetKeys.forEach(key => {
 
-      console.log(res.data[key])
+      if (key && !isNaN(Date.parse(key))) {
+        const date = new Date(key);
 
-      state[key] = res.data[key];
+        const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+        state[key] = formattedDate;
+
+      }else {
+
+        state[key] = res.data[key];
+
+      }
 
     });
 
@@ -81,8 +90,23 @@ function submitForm() {
 
 const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
 
-const opciones = ref([]);
-
+// const obtenerOpciones = async () => {
+//
+//   try {
+//     let res = await cliente.get('api/direcciones');
+//     return res.data;
+//
+//   } catch (e) {
+//     notifyError('Error', e.message);
+//   }
+//
+// }
+//
+// const opciones = ref([]);
+//
+// onMounted(async () => {
+//   opciones.value = await obtenerOpciones();
+// });
 
 const active = useState('activeItem');
 active.value = '{{ model }}';
@@ -126,14 +150,15 @@ active.value = '{{ model }}';
                            v-model="state[field.key]"
                 />
 
-                <USelectMenu v-if="field.type == 'select'"
-                             v-model="state[field.key]"
-                             :options="opciones"
-                             option-attribute="label"
-                             placeholder="Seleccione una opción"
-                             value-attribute="id"
-                >
-                </USelectMenu>
+<!--                agregar aca todos los selectores de forma manual -->
+
+<!--                <USelect v-if="field.type == 'select'"-->
+<!--                         v-model="state[field.key]"-->
+<!--                         :options="opciones"-->
+<!--                         option-attribute="nombre"-->
+<!--                         placeholder="Seleccione una opción"-->
+<!--                         value-attribute="id"-->
+<!--                />-->
 
               </UFormGroup>
             </div>

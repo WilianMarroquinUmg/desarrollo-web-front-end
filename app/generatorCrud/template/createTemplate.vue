@@ -10,14 +10,14 @@ const schema = {{ validacionesCreate }} ;
 
 const state = reactive( {{ camposCreate }}  );
 
+const cliente = useSanctumRequest();
+
 const formRef = ref();
 const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
   try {
 
-    const client = useSanctumRequest();
-
-    let res = await client.post('{{ url }}', state);
+    let res = await cliente.post('{{ url }}', state);
 
     notifySuccess('{{ model }} Cread@', res.data.message);
 
@@ -48,6 +48,24 @@ function submitForm() {
 }
 
 const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
+
+// const obtenerOpciones = async () => {
+//
+//   try {
+//     let res = await cliente.get('api/direcciones');
+//     return res.data;
+//
+//   } catch (e) {
+//     notifyError('Error', e.message);
+//   }
+//
+// }
+//
+// const opciones = ref([]);
+//
+// onMounted(async () => {
+//   opciones.value = await obtenerOpciones();
+// });
 
 
 const active = useState('activeItem');
@@ -89,6 +107,17 @@ active.value = '{{ model }}';
               <InputDate v-if="field.type == 'date'"
                          v-model="state[field.key]"
               />
+
+<!--              ingresar de forma manual cuando sea selector-->
+
+<!--              <USelect v-if="field.type == 'select'"-->
+<!--                       v-model="state[field.key]"-->
+<!--                       :options="opciones"-->
+<!--                       option-attribute="nombre"-->
+<!--                       placeholder="Seleccione una opción"-->
+<!--                       value-attribute="id"-->
+<!--              />-->
+
 
             </UFormGroup>
 

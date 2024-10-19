@@ -12,13 +12,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineEmits } from 'vue';
+import { ref, watch, defineEmits, defineProps } from 'vue';
+
+// Definir la prop
+const props = defineProps<{ modelValue: string | null }>();
 
 // Definir el evento emit
 const emit = defineEmits(['update:modelValue']);
 
-const dateValue = ref<string | null>(null);
+// Definir el valor inicial de dateValue basado en la prop
+const dateValue = ref<string | null>(props.modelValue);
 
+// Verificar si el valor de la prop cambia externamente
+watch(() => props.modelValue, (newValue) => {
+  dateValue.value = newValue;
+});
+
+// Emitir el valor actualizado
 const updateDate = () => {
   emit('update:modelValue', dateValue.value);
 };

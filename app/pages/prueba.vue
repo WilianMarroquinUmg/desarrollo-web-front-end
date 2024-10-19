@@ -1,34 +1,19 @@
 <script setup lang="ts">
-import type {Avatar} from '#ui/types'
 
-const people = [{
-  id: 'benjamincanac',
-  label: 'benjamincanac',
-}, {
-  id: 'Atinux',
-  label: 'Atinux',
-}, {
-  id: 'smarroufin',
-  label: 'smarroufin',
-},
-  {
-    id: 'nobody',
-    label: 'Nobody',
-  }]
+import InputDate from "~/components/personalized/InputDate.vue";
 
-const selected = ref('nobody')
+import { ref } from 'vue';
+
+const fecha = ref('2024-10-28');
+
+
 </script>
 
 <template>
 
-  <p v-text="selected"></p>
+  <p v-text="fecha"></p>
 
-  <USelectMenu v-model="selected"
-               :options="people"
-               option-attribute="label"
-               placeholder="Select people"
-               value-attribute="id"
-  >
-  </USelectMenu>
+  <InputDate v-model="fecha" />
+
+
 </template>
-
