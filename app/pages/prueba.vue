@@ -1,9 +1,10 @@
 <script lang="ts"  setup>
 import {defineComponent} from 'vue'
-import SelectDirecciones from "~/components/personalized/SelectorDirecciones.vue";
 import MiCard from "~/components/personalized/MiCard.vue";
+import SelectorDirecciones from "~/components/personalized/SelectorDirecciones.vue";
 
 const prueba = ref(null);
+
 
 </script>
 
@@ -11,8 +12,8 @@ const prueba = ref(null);
 
   <mi-card>
 
-    <personalized-selector-direcciones v-model="prueba" label="nombre" />
-
+    <P v-text="prueba"></P>
+    <selector-direcciones label="Nombre" v-model="prueba" />
 
   </mi-card>
 

@@ -21,7 +21,8 @@ active.value = 'PajaNueva';
 
         <multiselect v-model="value" :options="options"></multiselect>
 
-
+      </div>
+    </div>
 
 
   </mi-card>
