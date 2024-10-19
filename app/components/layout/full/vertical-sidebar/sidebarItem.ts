@@ -66,6 +66,12 @@ const sidebarItem: menu[] = [
                 to: '/pajas/trasladar',
             },
             {
+                title: 'Nueva',
+                icon: 'mdi-plus',
+                value: 'PajaNueva',
+                to: '/pajas/nueva',
+            },
+            {
                 title: 'Buscador',
                 icon: 'mdi-file-search',
                 value: 'PajasBuscador',
