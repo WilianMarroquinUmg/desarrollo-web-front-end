@@ -1,5 +1,3 @@
-
-
 export interface menu {
     header?: string;
     title?: string;
@@ -25,34 +23,57 @@ const sidebarItem: menu[] = [
         to: '/',
     },
     {
-        title: 'Users',
-        icon: 'mdi-account-circle',
+        title: 'Admin',
+        icon: 'mdi-account-cog',
         value: 'users',
         children: [
             {
-                title: 'Listar Usuarios',
+                title: 'Users',
                 icon: 'mdi-account-multiple',
-                value: 'admin',
+                value: 'User',
                 to: '/users',
             },
             {
-                title: 'Crear Usuario',
-                icon: 'mdi-account-plus',
-                value: 'actions',
-                to: '/prueba',
+                title: 'Catalogos',
+                icon: 'mdi-view-list',
+                value: 'Role',
+                children: [
+                    {
+                        title: 'Pendiente',
+                        icon: 'mdi-account-group',
+                        value: 'Role',
+                        to: '/roles',
+                    },
+                    {
+                        title: 'Direcciones',
+                        icon: 'mdi-home-group-minus',
+                        value: 'Direccion',
+                        to: '/direcciones',
+                    },
+                ],
             },
         ],
     },
     {
-        title: 'icons',
-        icon: 'iconsminds-three-arrow-fork',
-        value: 'icons',
-        to: '/icons',
-    }
-
+        title: 'Pajas De Agua',
+        icon: 'mdi-water-outline',
+        value: 'pruebas',
+        children: [
+            {
+                title: 'Nuevo Traslado',
+                icon: 'mdi-file-document-edit',
+                value: 'nuevoTraslado',
+                to: '/pajas/trasladar',
+            },
+            {
+                title: 'Buscador',
+                icon: 'mdi-file-search',
+                value: 'PajasBuscador',
+                to: '/pajas/buscador',
+            },
+        ],
+    },
 ];
-
-
 
 
 export default sidebarItem;

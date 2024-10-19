@@ -4,14 +4,16 @@ definePageMeta({
   middleware: ['sanctum:auth'],
 });
 
+useState('activeItem', () => '');
+
 </script>
 
 <template>
 
   <v-locale-provider>
-    <v-app>
+    <v-app style="background: #faf6f4">
       <LayoutFullMain/>
-      <v-main>
+      <v-main >
         <v-container fluid class="page-wrapper">
           <div class="maxWidth">
             <slot/>
