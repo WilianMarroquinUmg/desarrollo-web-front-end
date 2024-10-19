@@ -1,16 +1,34 @@
-<template>
-  <div>
+<script setup lang="ts">
+import type {Avatar} from '#ui/types'
 
-    <p>Fecha seleccionada: {{ selectedDate }}</p>
-  </div>
+const people = [{
+  id: 'benjamincanac',
+  label: 'benjamincanac',
+}, {
+  id: 'Atinux',
+  label: 'Atinux',
+}, {
+  id: 'smarroufin',
+  label: 'smarroufin',
+},
+  {
+    id: 'nobody',
+    label: 'Nobody',
+  }]
+
+const selected = ref('nobody')
+</script>
+
+<template>
+
+  <p v-text="selected"></p>
+
+  <USelectMenu v-model="selected"
+               :options="people"
+               option-attribute="label"
+               placeholder="Select people"
+               value-attribute="id"
+  >
+  </USelectMenu>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue';
-import InputDate from '~/components/personalized/InputDate.vue';
-
-const selectedDate = ref<string | null>(null);
-
-
-
-</script>

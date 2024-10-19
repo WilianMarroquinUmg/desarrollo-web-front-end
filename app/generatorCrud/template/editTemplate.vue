@@ -81,6 +81,8 @@ function submitForm() {
 
 const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
 
+const opciones = ref([]);
+
 
 const active = useState('activeItem');
 active.value = '{{ model }}';
@@ -123,6 +125,15 @@ active.value = '{{ model }}';
                 <InputDate v-if="field.type == 'date'"
                            v-model="state[field.key]"
                 />
+
+                <USelectMenu v-if="field.type == 'select'"
+                             v-model="state[field.key]"
+                             :options="opciones"
+                             option-attribute="label"
+                             placeholder="Seleccione una opción"
+                             value-attribute="id"
+                >
+                </USelectMenu>
 
               </UFormGroup>
             </div>
