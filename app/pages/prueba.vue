@@ -1,19 +1,25 @@
-<script setup lang="ts">
-
-import InputDate from "~/components/personalized/InputDate.vue";
-
-import { ref } from 'vue';
-
-const fecha = ref('2024-10-28');
-
-
-</script>
-
+<!-- Vue component -->
 <template>
-
-  <p v-text="fecha"></p>
-
-  <InputDate v-model="fecha" />
-
-
+  <div>
+    <multiselect v-model="value" :options="options"></multiselect>
+  </div>
 </template>
+
+<script>
+
+
+export default {
+
+  components: { Multiselect },
+  data () {
+    return {
+      value: null,
+      options: ['list', 'of', 'options']
+    }
+  }
+}
+</script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+<style>
+</style>

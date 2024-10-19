@@ -82,7 +82,7 @@ active.value = '{{ model }}';
            ref="formRef"
     >
 
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
         <template v-for=" (field, index) in valoresInputFormulario1"
                   :key="index"
