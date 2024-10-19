@@ -1,5 +1,3 @@
-
-
 export interface menu {
     header?: string;
     title?: string;
@@ -26,7 +24,7 @@ const sidebarItem: menu[] = [
     },
     {
         title: 'Admin',
-        icon: 'mdi-account-circle',
+        icon: 'mdi-account-cog',
         value: 'users',
         children: [
             {
@@ -35,24 +33,47 @@ const sidebarItem: menu[] = [
                 value: 'User',
                 to: '/users',
             },
+            {
+                title: 'Catalogos',
+                icon: 'mdi-view-list',
+                value: 'Role',
+                children: [
+                    {
+                        title: 'Pendiente',
+                        icon: 'mdi-account-group',
+                        value: 'Role',
+                        to: '/roles',
+                    },
+                    {
+                        title: 'Direcciones',
+                        icon: 'mdi-home-group-minus',
+                        value: 'Direccion',
+                        to: '/direcciones',
+                    },
+                ],
+            },
         ],
     },
     {
-        title: 'icons',
-        icon: 'iconsminds-three-arrow-fork',
-        value: 'icons',
-        to: '/icons',
+        title: 'Pajas De Agua',
+        icon: 'mdi-water-outline',
+        value: 'pruebas',
+        children: [
+            {
+                title: 'Nuevo Traslado',
+                icon: 'mdi-file-document-edit',
+                value: 'nuevoTraslado',
+                to: '/pajas/trasladar',
+            },
+            {
+                title: 'Buscador',
+                icon: 'mdi-file-search',
+                value: 'PajasBuscador',
+                to: '/pajas/buscador',
+            },
+        ],
     },
-    {
-        title: 'Direcciones',
-        icon: 'iconsminds-three-arrow-fork',
-        value: 'Direccion',
-        to: '/direcciones',
-    }
-
 ];
-
-
 
 
 export default sidebarItem;

@@ -30,9 +30,7 @@ const sDrawer = ref(true);
           ></recursive-item-menu>
         </v-list>
 
-        <div class="pa-4">
-          <LayoutFullVerticalSidebarExtraBox/>
-        </div>
+
       </perfect-scrollbar>
     </div>
 
