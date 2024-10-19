@@ -3,6 +3,7 @@ import MiCard from '~/components/personalized/MiCard.vue';
 import {object, string, InferType} from 'yup';
 import {ref, reactive} from 'vue';
 import type {FormSubmitEvent} from '#ui/types';
+import InputDate from "~/components/personalized/InputDate.vue";
 
 const {notifySuccess, notifyError} = useToastNotifications();
 
@@ -106,9 +107,6 @@ active.value = '{{ model }}';
 
             <div class="flex flex-col space-y-2">
               <UFormGroup
-
-
-
                   :label="field.label + ':'"
                   :name="field.key"
               >
@@ -120,6 +118,10 @@ active.value = '{{ model }}';
                 <UCheckbox v-if="field.type == 'checkbox'"
                            v-model="state[field.key]"
                            name="notifications"
+                />
+
+                <InputDate v-if="field.type == 'date'"
+                           v-model="state[field.key]"
                 />
 
               </UFormGroup>

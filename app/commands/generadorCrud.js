@@ -82,8 +82,7 @@ const askQuestions = async () => {
             .replace(/{{ camposCreate }}/g, formatearCamposFormCreate(campos))
             .replace(/{{ validacionesCreate }}/g, objectSchema(campos))
             .replace(/{{ url }}/g, url)
-            .replace(/{{ fields }}/g, columnasJSON)
-
+            .replace(/{{ valoresInputFormulario }}/g, tiposInputFormulario(campos))
             .replace(/{{ directory }}/g, directory.split('pages/')[1] );
 
         const editTemplate = fs.readFileSync(path.join(__dirname + '/app/generatorCrud/', 'template', 'editTemplate.vue'), 'utf-8')

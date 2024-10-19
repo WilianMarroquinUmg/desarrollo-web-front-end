@@ -3,13 +3,12 @@ import {reactive, ref, toRefs} from 'vue';
 import { object, string, InferType } from 'yup';
 import type { FormSubmitEvent } from '#ui/types';
 import MiCard from "~/components/personalized/MiCard.vue";
+import InputDate from "~/components/personalized/InputDate.vue";
 const {notifySuccess, notifyError} = useToastNotifications();
 
 const schema = {{ validacionesCreate }} ;
 
 const state = reactive( {{ camposCreate }}  );
-
-const fiels = Object.keys(state);
 
 const formRef = ref();
 const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
@@ -48,6 +47,9 @@ function submitForm() {
   }
 }
 
+const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
+
+
 const active = useState('activeItem');
 active.value = '{{ model }}';
 
@@ -64,18 +66,30 @@ active.value = '{{ model }}';
 
       <div class="grid grid-cols-2 gap-4">
 
-        <template v-for=" (field, index) in fiels"
+        <template v-for=" (field, index) in valoresInputFormulario1"
                   :key="index"
         >
 
           <div class="flex flex-col space-y-2">
 
             <UFormGroup
-
-                :label="formatearCampoLabel(field)+':'"
-                :name="field"
+                :label="field.label + ':'"
+                :name="field.key"
             >
-              <UInput v-model="state[field]" />
+
+              <UInput v-if="field.type == 'text'"
+                      v-model="state[field.key]"
+              />
+
+              <UCheckbox v-if="field.type == 'checkbox'"
+                         v-model="state[field.key]"
+                         name="notifications"
+              />
+
+              <InputDate v-if="field.type == 'date'"
+                         v-model="state[field.key]"
+              />
+
             </UFormGroup>
 
           </div>
