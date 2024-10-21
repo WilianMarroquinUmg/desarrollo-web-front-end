@@ -2,16 +2,61 @@
 <script setup lang="ts">
 import MiCard from "~/components/personalized/MiCard.vue";
 import Multiselect from 'vue-multiselect'
+import SelectorDirecciones from "~/components/personalized/SelectorDirecciones.vue";
 
+const {notifyError, notifySuccess} = useToastNotifications()
+
+const cliente = useSanctumRequest()
 import {ref} from 'vue'
 
+const trasladoPajaAgua = ref({
+  dueñoActual: '',
+  dueñoNuevo: '',
+  direccionActualPaja: '',
+  nuevaDireccionPaja: '',
+  tipoAdquisicion: '',
+  observaciones: ''
+})
 
-const value = ref(null);
-const options = ref(['list', 'of', 'options']);
+
+const residentes = ref([])
+const getResidentes = async () => {
+  try {
+
+    let res = await cliente.get('api/residentes')
+
+    residentes.value = res.data
+
+  } catch (error) {
+
+    notifyError(error.meesage)
+
+  }
+}
+
+getResidentes()
+
+const tiposAdquisicion = ref([])
+const getTiposAdquisicion = async () => {
+  try {
+
+    let res = await cliente.get('api/tipos-adquisicion')
+
+    tiposAdquisicion.value = res.data
+
+    console.log(tiposAdquisicion.value)
+
+  } catch (error) {
+
+    notifyError(error.meesage)
+
+  }
+}
+
+getTiposAdquisicion()
 
 
-const active = useState('activeItem');
-active.value = 'nuevoTraslado';
+
 
 </script>
 
@@ -27,53 +72,67 @@ active.value = 'nuevoTraslado';
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-      <div class="flex flex-col space-y-2">
+            <div class="flex flex-col space-y-2">
 
-        <label for="Dueño">Dueño Actual:</label>
+              <label for="Dueño">Dueño Actual:</label>
 
-        <multiselect v-model="value" :options="options"></multiselect>
+              <multiselect v-model="trasladoPajaAgua.dueñoActual"
+                           :options="residentes"
+                           label="dpi_y_nombre"
+              ></multiselect>
 
-      </div>
+            </div>
 
-      <div class="flex flex-col space-y-2">
+            <div class="flex flex-col space-y-2">
 
-        <label for="Dueño">Dueño Nuevo:</label>
+              <label for="Dueño">Dueño Nuevo:</label>
 
-        <multiselect v-model="value" :options="options"></multiselect>
+              <multiselect v-model="trasladoPajaAgua.dueñoNuevo"
+                           :options="residentes">
 
-      </div>
+              </multiselect>
 
-      <div class="flex flex-col space-y-2">
+            </div>
 
-        <label for="Dueño">Direccion Actual Paja:</label>
+            <div class="flex flex-col space-y-2">
 
-        <multiselect v-model="value" :options="options"></multiselect>
+              <label for="Dueño">Direccion Actual Paja:</label>
 
-      </div>
+              <selector-direcciones name="direccion"
+                                    v-model="trasladoPajaAgua.direccionActualPaja"
+              />
 
-      <div class="flex flex-col space-y-2">
+            </div>
 
-        <label for="Dueño">Nueva Dirección Paja:</label>
+            <div class="flex flex-col space-y-2">
 
-        <multiselect v-model="value" :options="options"></multiselect>
+              <label for="Dueño">Nueva Dirección Paja:</label>
 
-      </div>
+              <selector-direcciones name="direccion"
+                                    v-model="trasladoPajaAgua.nuevaDireccionPaja"
+              />
 
-      <div class="flex flex-col space-y-2">
 
-        <label for="Dueño">Tipo Adquisición:</label>
+            </div>
 
-        <multiselect v-model="value" :options="options"></multiselect>
+            <div class="flex flex-col space-y-2">
 
-      </div>
+              <label for="Dueño">Tipo Adquisición:</label>
 
-      <div class="flex flex-col space-y-2">
+<!--              <multiselect v-model="trasladoPajaAgua.tipoAdquisicion"-->
+<!--                           :options="tiposAdquisicion">-->
 
-        <label for="Dueño">Observaciones:</label>
+<!--              </multiselect>-->
 
-        <UTextarea />
+            </div>
 
-      </div>
+      <!--      <div class="flex flex-col space-y-2">-->
+
+      <!--        <label for="Dueño">Observaciones:</label>-->
+
+      <!--        <UTextarea />-->
+
+      <!--      </div>-->
 
     </div>
 

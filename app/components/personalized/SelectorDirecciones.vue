@@ -174,7 +174,7 @@ const fetchDirecciones = async () => {
     try {
       const response = await cliente.get('api/direcciones');
       items_api.value = response.data;  // Asigna las direcciones obtenidas a items_api
-      console.log('Direcciones:', items_api.value);
+
     } catch (error) {
       console.error('Error fetching direcciones:', error);
     }
