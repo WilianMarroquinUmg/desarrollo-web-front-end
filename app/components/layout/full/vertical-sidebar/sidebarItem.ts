@@ -34,10 +34,10 @@ const sidebarItem: menu[] = [
                 to: '/users',
             },
             {
-                title: 'Nueva Paja',
+                title: 'Pajas',
                 icon: 'mdi-plus',
                 value: 'PajaNueva',
-                to: '/pajas/nueva',
+                to: '/pajas/',
             },
             {
                 title: 'Catalogos',
