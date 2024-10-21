@@ -9,4 +9,5 @@ export default defineNuxtConfig({
     plugins: [
     { src: '~/plugins/bootstrap-vue.js', ssr: true }
     ],
+
 })
