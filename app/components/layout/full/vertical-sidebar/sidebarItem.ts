@@ -45,10 +45,10 @@ const sidebarItem: menu[] = [
                 value: 'Role',
                 children: [
                     {
-                        title: 'Pendiente',
-                        icon: 'mdi-account-group',
-                        value: 'Role',
-                        to: '/roles',
+                        title: 'Tipos Adquisición',
+                        icon: 'mdi-book-plus-multiple',
+                        value: 'TipoAdquisicion',
+                        to: '/tipoadquisiciones',
                     },
                     {
                         title: 'Direcciones',
