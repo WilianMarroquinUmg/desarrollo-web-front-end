@@ -14,9 +14,13 @@
 
     <multiselect v-model="item" :options="options" label="nombre" placeholder="Seleccione uno..." :disabled="disabled">
       <template #noResult>
-        <a class="btn btn-sm btn-block btn-success" href="#" @click.prevent="newItem">
-          <i class="fa fa-plus"></i> Nuevo
-        </a>
+
+        <UButton label="Crear"
+                 icon="mdi-plus"
+                 @click.prevent="newItem"
+                 block
+        />
+
       </template>
     </multiselect>
 
