@@ -8,7 +8,7 @@ import type {FormSubmitEvent} from "#ui/types";
 import SelectorDirecciones from "~/components/personalized/SelectorDirecciones.vue";
 
 const active = useState('activeItem');
-active.value = 'PajaNueva';
+active.value = 'PajaAgua';
 
 const cliente = useSanctumRequest();
 
@@ -98,6 +98,7 @@ getTipoAdquisicion();
 
 
 
+
 </script>
 
 <template>
@@ -179,6 +180,7 @@ getTipoAdquisicion();
       <UButton color="gray"
                class="mr-2"
                label="Regresar"
+               to="/pajas"
       />
 
       <UButton color="green"

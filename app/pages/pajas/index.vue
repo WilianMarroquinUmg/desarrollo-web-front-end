@@ -1,16 +1,19 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import {defineComponent, ref, onMounted} from 'vue';
 import MiCard from "~/components/personalized/MiCard.vue";
 
 export default defineComponent({
   name: "index",
-  components: { MiCard },
+  components: {MiCard},
 
   setup() {
     const cliente = useSanctumRequest();
-    const { notifyError } = useToastNotifications();
+    const {notifyError} = useToastNotifications();
 
-    // Reactive variables
+    const active = useState('activeItem');
+    active.value = 'PajaAgua';
+
+
     const pajas = ref<any[]>([]);
     const columnsItems = ref([
       {
@@ -63,7 +66,7 @@ export default defineComponent({
         variant="solid"
         label="Nuevo"
         :trailing="false"
-        to="nueva"
+        to="/pajas/nueva"
     />
   </div>
 
@@ -80,14 +83,28 @@ export default defineComponent({
     >
       <template #table-row="props">
         <span v-if="props.column.field == 'opciones'">
-          <UButton
-              icon="i-heroicons-eye"
-              size="sm"
-              color="blue"
-              variant="solid"
-              :to=" 'detalles/' + props.row.residente_id"
-              class="mr-1"
-          />
+
+          <UTooltip text="Vizualizar">
+            <UButton
+                icon="i-heroicons-eye"
+                size="sm"
+                color="blue"
+                variant="solid"
+                :to=" 'pajas/detalles/' + props.row.residente_id"
+                class="mr-1"
+            />
+          </UTooltip>
+
+          <UTooltip text="Trasladar">
+               <UButton
+                   icon="mdi-arrow-collapse-right"
+                   size="sm"
+                   color="orange"
+                   variant="solid"
+                   :to=" '/pajas/trasladar/' + props.row.residente_id"
+                   class="mr-1"
+               />
+            </UTooltip>
         </span>
         <span v-else>
           {{ props.formattedRow[props.column.field] }}

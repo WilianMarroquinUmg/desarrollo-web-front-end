@@ -34,9 +34,9 @@ const sidebarItem: menu[] = [
                 to: '/users',
             },
             {
-                title: 'Pajas',
-                icon: 'mdi-plus',
-                value: 'PajaNueva',
+                title: 'Pajas de Agua',
+                icon: 'mdi-water-outline',
+                value: 'PajaAgua',
                 to: '/pajas/',
             },
             {

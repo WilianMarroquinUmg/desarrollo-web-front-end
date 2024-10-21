@@ -51,6 +51,8 @@ const formatoFecha = (fecha) => {
 .timeline-items {
   list-style: none;
   position: relative;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 
 .timeline-item {

@@ -34,6 +34,17 @@ getDetalles();
 </script>
 
 <template>
+  <div class="text-right mb-4">
+    <UButton
+        icon="i-heroicons-arrow-left-end-on-rectangle"
+        size="sm"
+        color="gray"
+        variant="solid"
+        label="Regresar"
+        :trailing="false"
+        to="/pajas"
+    />
+  </div>
   <mi-card>
     <UAccordion
         color="blue"
