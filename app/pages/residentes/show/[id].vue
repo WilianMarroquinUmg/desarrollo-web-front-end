@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MiCard from '~/components/personalized/MiCard.vue';
+const {notifySuccess, notifyError} = useToastNotifications();
 
 const route = useRoute();
 
@@ -142,6 +143,14 @@ active.value = 'Residente';
 <template>
 
   <mi-card borderColor="#e74c3c">
+
+    <template #header>
+      <h1>Residente</h1>
+    </template>
+
+    <template #text>
+      <p>Datos del Residente.</p>
+    </template>
 
     <div class="grid grid-cols-2 gap-4">
 

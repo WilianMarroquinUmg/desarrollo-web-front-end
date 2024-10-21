@@ -81,6 +81,16 @@ active.value = 'TipoAdquisicion';
 
 <template>
   <mi-card>
+
+    <template #header>
+      <h1>Crear Tipo Adquisición</h1>
+    </template>
+
+    <template #text>
+      <p>Ingresa el Nombre del tipo de adquisición.</p>
+    </template>
+
+
     <UForm :schema="schema"
            :state="state"
            class="space-y-4"

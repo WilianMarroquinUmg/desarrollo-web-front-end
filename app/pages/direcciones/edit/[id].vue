@@ -121,8 +121,13 @@ active.value = 'Direccion';
 <template>
   <mi-card borderColor="#e74c3c">
     <template #header>
-
+      <h1>Editar Dirección</h1>
     </template>
+
+    <template #text>
+      <h1 class="text-center">Ingresa la nueva ubicación de la dirección</h1>
+    </template>
+
 
     <UForm :schema="schema"
            :state="state"

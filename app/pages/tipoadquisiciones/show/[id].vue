@@ -64,6 +64,14 @@ active.value = 'TipoAdquisicion';
 
   <mi-card borderColor="#e74c3c">
 
+    <template #header>
+      <h1>Detalles De Tipo de Adquisición</h1>
+    </template>
+
+    <template #text>
+      <p>Detalles De Tipo de Adquisición</p>
+    </template>
+
     <div class="grid grid-cols-2 gap-4">
 
       <template v-for="field in Object.keys(item)">

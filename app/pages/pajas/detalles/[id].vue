@@ -46,6 +46,15 @@ getDetalles();
     />
   </div>
   <mi-card>
+
+    <template #header>
+      <h1>Detalles Paja de Agua</h1>
+    </template>
+
+    <template #text>
+      <h1 class="text-center">Historial de movimientos de las pajas de agua, ordenados del más reciente al más antiguo.</h1>
+    </template>
+
     <UAccordion
         color="blue"
         variant="solid"

@@ -153,6 +153,15 @@ active.value = 'Residente';
 
 <template>
   <mi-card>
+
+    <template #header>
+      <h1>Crear Residente</h1>
+    </template>
+
+    <template #text>
+      <p>Ingresa los datos a continuación para crear un nuevo residente.</p>
+    </template>
+
     <UForm :schema="schema"
            :state="state"
            class="space-y-4"

@@ -61,6 +61,14 @@ active.value = 'Direccion';
 
   <mi-card borderColor="#e74c3c">
 
+    <template #header>
+      <h1>Detalles De Dirección</h1>
+    </template>
+
+    <template #text>
+      <p>Detalles de la Dirección</p>
+    </template>
+
     <div class="grid grid-cols-2 gap-4">
 
       <template v-for="field in Object.keys(item)">

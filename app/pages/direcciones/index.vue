@@ -83,6 +83,14 @@ active.value = 'Direccion';
   </div>
 
   <mi-card borderColor="#e74c3c">
+    <template #header>
+      <h1>Direcciones</h1>
+    </template>
+
+    <template #text>
+      <h1 class="text-center">Listado de direcciones.</h1>
+    </template>
+
     <vue-good-table
         :columns="columnsItems"
         :rows="items"

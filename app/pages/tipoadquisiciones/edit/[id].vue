@@ -121,7 +121,11 @@ active.value = 'TipoAdquisicion';
 <template>
   <mi-card borderColor="#e74c3c">
     <template #header>
+      <h1>Editar Tipo Adquisición</h1>
+    </template>
 
+    <template #text>
+      <p>Ingresa el Nuevo Nombre del tipo de adquisición.</p>
     </template>
 
     <UForm :schema="schema"

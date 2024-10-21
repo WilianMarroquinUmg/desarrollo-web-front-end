@@ -83,6 +83,15 @@ active.value = 'TipoAdquisicion';
   </div>
 
   <mi-card borderColor="#e74c3c">
+
+    <template #header>
+      <h1>Tpos de Adquisición</h1>
+    </template>
+
+    <template #text>
+      <h1 class="text-center">Listado de Tipos de Adquisición.</h1>
+    </template>
+
     <vue-good-table
         :columns="columnsItems"
         :rows="items"

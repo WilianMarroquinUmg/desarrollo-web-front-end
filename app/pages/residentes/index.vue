@@ -119,6 +119,15 @@ active.value = 'Residente';
   </div>
 
   <mi-card borderColor="#e74c3c">
+
+    <template #header>
+      <h1>Residentes</h1>
+    </template>
+
+    <template #text>
+      <p>Listado de Residentes.</p>
+    </template>
+
     <vue-good-table
         :columns="columnsItems"
         :rows="items"

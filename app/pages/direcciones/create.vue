@@ -81,6 +81,16 @@ active.value = 'Direccion';
 
 <template>
   <mi-card>
+
+    <template #header>
+      <h1>Crear Dirección</h1>
+    </template>
+
+    <template #text>
+      <p>Ingresa la ubicación de la dirección.</p>
+    </template>
+
+
     <UForm :schema="schema"
            :state="state"
            class="space-y-4"

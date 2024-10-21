@@ -194,7 +194,11 @@ active.value = 'Residente';
 <template>
   <mi-card borderColor="#e74c3c">
     <template #header>
+      <h1>Editar Residente</h1>
+    </template>
 
+    <template #text>
+      <p>Ingresa los nuevos datos a continuación para actualizar el residente.</p>
     </template>
 
     <UForm :schema="schema"
