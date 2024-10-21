@@ -137,17 +137,15 @@ active.value = '{{ model }}';
                   :name="field.key"
               >
 
-                <UInput v-if="field.type == 'text'"
+
+                <UInput v-if="field.type == 'text' || field.type == 'number' || field.type == 'date'"
                         v-model="state[field.key]"
+                        :type="field.type"
                 />
 
                 <UCheckbox v-if="field.type == 'checkbox'"
                            v-model="state[field.key]"
                            name="notifications"
-                />
-
-                <InputDate v-if="field.type == 'date'"
-                           v-model="state[field.key]"
                 />
 
 <!--                agregar aca todos los selectores de forma manual -->

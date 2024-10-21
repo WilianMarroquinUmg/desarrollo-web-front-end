@@ -34,6 +34,12 @@ const sidebarItem: menu[] = [
                 to: '/users',
             },
             {
+                title: 'Nueva Paja',
+                icon: 'mdi-plus',
+                value: 'PajaNueva',
+                to: '/pajas/nueva',
+            },
+            {
                 title: 'Catalogos',
                 icon: 'mdi-view-list',
                 value: 'Role',
@@ -66,10 +72,10 @@ const sidebarItem: menu[] = [
                 to: '/pajas/trasladar',
             },
             {
-                title: 'Nueva',
-                icon: 'mdi-plus',
-                value: 'PajaNueva',
-                to: '/pajas/nueva',
+                title: 'Residentes',
+                icon: 'mdi-account-multiple',
+                value: 'Residente',
+                to: '/residentes',
             },
             {
                 title: 'Buscador',
@@ -77,6 +83,7 @@ const sidebarItem: menu[] = [
                 value: 'PajasBuscador',
                 to: '/pajas/buscador',
             },
+
         ],
     },
 ];
