@@ -37,12 +37,10 @@ export default defineComponent({
         let res = await cliente.get('api/paja-aguas');
         pajas.value = res.data;
       } catch (error) {
-        console.log(error);
         notifyError(error);
       }
     };
 
-    // Hook to call getPajas when the component is mounted
     onMounted(() => {
       getPajas();
     });
@@ -57,6 +55,18 @@ export default defineComponent({
 </script>
 
 <template>
+  <div class="text-right mb-4">
+    <UButton
+        icon="i-heroicons-pencil-square"
+        size="sm"
+        color="primary"
+        variant="solid"
+        label="Nuevo"
+        :trailing="false"
+        to="nueva"
+    />
+  </div>
+
   <mi-card>
     <template #header>
       <h1>Pajas de Agua</h1>
@@ -75,7 +85,7 @@ export default defineComponent({
               size="sm"
               color="blue"
               variant="solid"
-              :to=" 'detalles/' + props.row.id"
+              :to=" 'detalles/' + props.row.residente_id"
               class="mr-1"
           />
         </span>

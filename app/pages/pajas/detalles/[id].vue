@@ -1,6 +1,36 @@
 <script setup lang="ts">
-
 import MiCard from "~/components/personalized/MiCard.vue";
+import TimeLine from "~/components/personalized/TimeLine.vue";
+
+const cliente = useSanctumRequest()
+const { notifyError, notifySuccess } = useToastNotifications()
+
+const items = ref([])
+
+const route = useRoute();
+const residente_id = route.params.id;
+
+const getDetalles = async () => {
+  try {
+    let res = await cliente.get(`api/paja-aguas/getDetalles/residente${residente_id}`);
+    items.value = formatearItems(res.data);
+  } catch (error) {
+    notifyError(error);
+  }
+};
+
+const formatearItems = (items) => {
+  return items.paja_aguas.map(item => {
+    return {
+      label: item.correlativo,
+      icon: "document-text",
+      slot: item.id,
+      data: item
+    }
+  })
+}
+
+getDetalles();
 </script>
 
 <template>
@@ -9,11 +39,16 @@ import MiCard from "~/components/personalized/MiCard.vue";
         color="blue"
         variant="solid"
         size="sm"
-        :items="[{ label: '1. What is Nuxt UI?', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }, { label: '2. Getting Started', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }, { label: '3. Theming', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }, { label: '4. Components', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }]"
-    />
+        :items="items"
+    >
+      <template v-for="item in items" :key="item.slot" v-slot:[item.slot]>
+
+        <time-line :items="item.data.bitacoras" />
+
+      </template>
+    </UAccordion>
   </mi-card>
 </template>
 
 <style scoped>
-
 </style>

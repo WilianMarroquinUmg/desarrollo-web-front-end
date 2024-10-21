@@ -50,6 +50,7 @@ const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
     notifySuccess('Paja creada', res.data.message);
 
+    navigateTo('/')
 
 
   } catch (error) {
