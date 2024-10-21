@@ -1,22 +1,26 @@
-<script lang="ts">
-import {defineComponent} from 'vue'
+<script lang="ts" setup>
+import {defineComponent, computed} from 'vue'
 import {useRoute} from 'vue-router';
-export default defineComponent({
-  name: "recursiveItemMenu",
-  props: {
-    item: Object
-  },
-  setup(props) {
-    const route = useRoute();
 
-    const isActive = (to: string) => {
-      return route.path === to;  // Compara la ruta actual con el destino del ítem
-    };
-
-    return { isActive };
+const props = defineProps<{
+  item: {
+    title: string,
+    icon: string,
+    to: string,
+    subCaption: string,
+    children: any[]
   }
+}>()
 
+
+const activo = useState('activeItem');
+
+const estaActivo = computed(() => {
+  return activo.value === props.item.value;
 })
+
+
+
 </script>
 
 <template>
@@ -46,7 +50,7 @@ export default defineComponent({
                  rounded
                  class="mb-1"
                  variant="plain"
-                 :class="{ 'active-item': isActive(item.to) }"
+                 :class="{ 'active-item': estaActivo }"
                  :prepend-icon="item.icon"
 
     >

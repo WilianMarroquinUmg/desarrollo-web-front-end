@@ -1,24 +1,21 @@
-<script lang="ts">
+<script lang="ts"  setup>
 import {defineComponent} from 'vue'
 import MiCard from "~/components/personalized/MiCard.vue";
+import SelectorDirecciones from "~/components/personalized/SelectorDirecciones.vue";
 
-export default defineComponent({
-  name: "prueba",
-  components: {MiCard}
-})
+const prueba = ref(null);
+
+
 </script>
 
 <template>
-  <u-container>
 
-    <mi-card title="Mi Card" borderColor="#1e272e">
-      <div>
-        <h1>Card Content</h1>
-        <p>Card content goes here...</p>
-      </div>
-    </mi-card>
+  <mi-card>
 
-  </u-container>
+    <P v-text="prueba"></P>
+    <selector-direcciones label="Nombre" v-model="prueba" />
+
+  </mi-card>
 
 </template>
 

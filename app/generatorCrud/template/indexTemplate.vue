@@ -8,11 +8,15 @@ const cliente = useSanctumRequest();
 
 const {notifySuccess, notifyError} = useToastNotifications();
 
-const columnsItems = ref([
-  {label: 'Nombre Completo', field: 'nombre_completo'},
-  {label: 'Email', field: 'email'},
-  {label: 'Opciones', field: 'opciones', thClass: 'text-center', tdClass: 'text-center', width: '150px'},
-]);
+const columnsItems = ref({{ fields }} );
+
+columnsItems.value.push({
+  label: 'Opciones',
+  field: 'opciones',
+  filterable: false,
+  sortable: false,
+  width: '150px'
+});
 
 let items = ref([]);
 
@@ -20,7 +24,7 @@ const getItems = async () => {
 
   try {
 
-    let res  = await cliente.get('/api/users');
+    let res  = await cliente.get('{{ url }}');
 
     items.value = res.data
 
@@ -33,16 +37,15 @@ const getItems = async () => {
 }
 
 getItems();
-
 const deleteItem = async (id: number) => {
 
-  if ((await AlertCuestion('¿Estas seguro de eliminar este usuario?')).isConfirmed) {
+  if ((await AlertCuestion('¿Estas seguro de eliminar est@ {{ model }}?')).isConfirmed) {
 
     try {
 
-      let res = await cliente.delete(`/api/users/${id}`);
+      let res = await cliente.delete('{{ url }}/' + id);
 
-      notifySuccess('Usuario Elimiado', res.data.message);
+      notifySuccess('{{ model }} Elimiado', res.data.message);
 
       await getItems();
 
@@ -57,7 +60,7 @@ const deleteItem = async (id: number) => {
 };
 
 const active = useState('activeItem');
-active.value = 'User';
+active.value = '{{ model }}';
 
 </script>
 
@@ -70,7 +73,7 @@ active.value = 'User';
         variant="solid"
         label="Nuevo"
         :trailing="false"
-        to="/users/create"
+        to="{{ directory }}/create"
     />
   </div>
 
@@ -90,14 +93,14 @@ active.value = 'User';
                 color="blue"
                 variant="solid"
                 class="mr-1"
-                :to="`/users/show/${props.row.id}`"
+                :to=" '{{ directory }}/show/' + props.row.id "
             />
             <UButton
                 icon="i-heroicons-pencil-square"
                 size="sm"
                 color="yellow"
                 variant="solid"
-                :to="`/users/edit/${props.row.id}`"
+                :to=" '{{ directory }}/edit/' + props.row.id "
                 class="mr-1"
             />
             <UButton

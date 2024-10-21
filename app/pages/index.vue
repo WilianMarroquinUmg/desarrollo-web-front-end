@@ -5,6 +5,9 @@ definePageMeta({
     layout: 'default',
 });
 
+const active = useState('activeItem');
+active.value = 'home';
+
 const user = useSanctumUser()
 
 </script>
