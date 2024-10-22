@@ -40,7 +40,7 @@ const getResidentes = async () => {
 
     let res = await cliente.get('api/residentes')
 
-    residentes.value = res.data
+    residentes.value = res.data.filter((residente: any) => residente.id != resienteActual)
 
   } catch (error) {
 
@@ -148,12 +148,14 @@ function submitForm() {
   <mi-card>
 
     <template #header>
-
-      <h1>Traslado Paja de Agua</h1>
-
+      <h1>Trasladar Paja de Agua</h1>
     </template>
 
-    <p class="mb-4">Se trasladara la paja de agua del señor {{ residenteDuenoActual.nombre_completo }}. </p>
+    <template #text>
+      <p>Se trasladara la paja de agua del señor {{residenteDuenoActual.nombre_completo}}.</p>
+    </template>
+
+    <p class="mb-4"> </p>
 
     <UForm :schema="schema"
            :state="state"

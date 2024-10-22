@@ -12,7 +12,7 @@
         <div class="timeline-item-content">
           <p><strong>Residente:</strong> {{ item?.residente?.nombre_completo }}</p>
           <p><strong>Fecha Adquisición:</strong> {{ formatoFecha(item.created_at) }}</p>
-          <p><strong>Comentario:</strong> {{ item?.observaciones }}</p>
+          <p><strong>Observación:</strong> {{ item?.observaciones }}</p>
         </div>
       </div>
     </div>
