@@ -20,7 +20,7 @@ const user = useSanctumUser()
       <h1 class="text-2xl font-bold">Inicio</h1>
     </template>
 
-    <h1>Hi! {{ user.nombre_completo }}</h1>
+    <h1>Hi! {{ user?.nombre_completo }}</h1>
 
 
   </mi-card>
