@@ -31,39 +31,17 @@
               <v-divider></v-divider>
 
               <v-list-item-group v-model="selectedItem" active-class="deep-purple--text text--accent-4">
-                <v-list-item @click="navigateTo('dashboard')" class="pt-2 hoverable">
+                <v-list-item
+                  v-for="(item, index) in menuItems"
+                  :key="index"
+                  @click="navigateTo(item)"
+                  :class="['pt-2 hoverable', { 'active-item': item === pageTitle }]"
+                >
                   <v-list-item-icon>
-                    <v-icon large>mdi-view-dashboard</v-icon>
+                    <v-icon large>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>Dashboard</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-list-item @click="navigateTo('usuarios')" class="pt-2 hoverable">
-                  <v-list-item-icon>
-                    <v-icon large>mdi-account-group</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Usuarios</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-list-item @click="navigateTo('proyectos')" class="pt-2 hoverable">
-                  <v-list-item-icon>
-                    <v-icon large>mdi-briefcase</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Proyectos</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-list-item @click="navigateTo('ajustes')" class="pt-2 hoverable">
-                  <v-list-item-icon>
-                    <v-icon large>mdi-cog</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Ajustes</v-list-item-title>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -73,8 +51,9 @@
           <!-- Contenido del panel -->
           <v-col>
             <v-card class="pa-4" outlined elevation="3" :style="{ borderRadius: '12px', backgroundColor: '#f5f7fa' }">
-              <h1 class="text-h4 font-weight-bold mb-3">{{ pageTitle }}</h1>
-              <component :is="currentComponent"></component>
+              <transition name="fade" mode="out-in">
+                <component :is="currentComponent" :key="currentComponent"></component>
+              </transition>
             </v-card>
           </v-col>
         </v-row>
@@ -97,15 +76,21 @@ export default {
       drawer: true,
       selectedItem: 0,
       pageTitle: "Dashboard",
-      currentComponent: "DashboardComponent"
+      currentComponent: "DashboardComponent",
+      menuItems: [
+        { title: "Dashboard", icon: "mdi-view-dashboard" },
+        { title: "Usuarios", icon: "mdi-account-group" },
+        { title: "Proyectos", icon: "mdi-briefcase" },
+        { title: "Ajustes", icon: "mdi-cog" },
+      ],
     };
   },
   methods: {
-    navigateTo(page) {
-      this.pageTitle = page.charAt(0).toUpperCase() + page.slice(1);
-      this.currentComponent = `${page.charAt(0).toUpperCase()}${page.slice(1)}Component`;
-    }
-  }
+    navigateTo(item) {
+      this.pageTitle = item.title;
+      this.currentComponent = `${item.title}Component`;
+    },
+  },
 };
 </script>
 
@@ -137,5 +122,15 @@ export default {
 .v-card:hover {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.active-item {
+  background-color: rgba(100, 100, 255, 0.1);
+}
 </style>
-</template>
