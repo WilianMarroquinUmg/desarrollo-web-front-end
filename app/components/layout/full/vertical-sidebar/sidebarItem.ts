@@ -23,9 +23,15 @@ const sidebarItem: menu[] = [
         to: '/',
     },
     {
+        title: 'Pajas de Agua',
+        icon: 'mdi-water-outline',
+        value: 'PajaAgua',
+        to: '/pajas/',
+    },
+    {
         title: 'Admin',
         icon: 'mdi-account-cog',
-        value: 'users',
+        value: '',
         children: [
             {
                 title: 'Users',
@@ -34,15 +40,22 @@ const sidebarItem: menu[] = [
                 to: '/users',
             },
             {
+                title: 'Residentes',
+                icon: 'mdi-account-group',
+                value: 'Residente',
+                to: '/residentes',
+            },
+
+            {
                 title: 'Catalogos',
                 icon: 'mdi-view-list',
-                value: 'Role',
+                value: '',
                 children: [
                     {
-                        title: 'Pendiente',
-                        icon: 'mdi-account-group',
-                        value: 'Role',
-                        to: '/roles',
+                        title: 'Tipos Adquisición',
+                        icon: 'mdi-book-plus-multiple',
+                        value: 'TipoAdquisicion',
+                        to: '/tipoadquisiciones',
                     },
                     {
                         title: 'Direcciones',
@@ -54,31 +67,7 @@ const sidebarItem: menu[] = [
             },
         ],
     },
-    {
-        title: 'Pajas De Agua',
-        icon: 'mdi-water-outline',
-        value: 'pruebas',
-        children: [
-            {
-                title: 'Nuevo Traslado',
-                icon: 'mdi-file-document-edit',
-                value: 'nuevoTraslado',
-                to: '/pajas/trasladar',
-            },
-            {
-                title: 'Nueva',
-                icon: 'mdi-plus',
-                value: 'PajaNueva',
-                to: '/pajas/nueva',
-            },
-            {
-                title: 'Buscador',
-                icon: 'mdi-file-search',
-                value: 'PajasBuscador',
-                to: '/pajas/buscador',
-            },
-        ],
-    },
+
 ];
 
 

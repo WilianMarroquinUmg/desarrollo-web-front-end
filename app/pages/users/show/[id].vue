@@ -45,7 +45,11 @@ active.value = 'users';
 
   <mi-card borderColor="#e74c3c">
     <template #header>
-      <h1>{{ item.nombre_completo }}</h1>
+      <h1>Usuario</h1>
+    </template>
+
+    <template #text>
+      <p>Datos del usuario.</p>
     </template>
 
       <div class="grid grid-cols-2 gap-4">
@@ -73,7 +77,14 @@ active.value = 'users';
 
     <template #footer>
       <div>
-        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/users')" />
+        <UButton type="button"
+                 color="gray"
+                 variant="solid"
+                 label="Regresar"
+                 icon="i-heroicons-arrow-left-end-on-rectangle"
+                 to="/users"
+                 class="mr-1"
+        />
       </div>
     </template>
   </mi-card>

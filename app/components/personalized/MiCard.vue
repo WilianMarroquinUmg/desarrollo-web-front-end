@@ -3,6 +3,12 @@
     <div class="card-header">
       <slot name="header"></slot>
     </div>
+
+    <div class="card-texto-informativo">
+      <slot name="text"></slot>
+    </div>
+
+
     <div class="card-body">
       <slot></slot>
     </div>
@@ -60,4 +66,14 @@ defineProps({
   text-align: right;
   color: #888;
 }
+
+.card-texto-informativo {
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  text-align: center;
+}
+
 </style>

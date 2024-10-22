@@ -9,10 +9,55 @@ const cliente = useSanctumRequest();
 const {notifySuccess, notifyError} = useToastNotifications();
 
 const columnsItems = ref([
-  {label: 'Nombre Completo', field: 'nombre_completo'},
-  {label: 'Email', field: 'email'},
-  {label: 'Opciones', field: 'opciones', thClass: 'text-center', tdClass: 'text-center', width: '150px'},
-]);
+  {
+    "label": "Primer Nombre",
+    "field": "primer_nombre"
+  },
+  {
+    "label": "Segundo Nombre",
+    "field": "segundo_nombre"
+  },
+  {
+    "label": "Tercer Nombre",
+    "field": "tercer_nombre"
+  },
+  {
+    "label": "Primer Apellido",
+    "field": "primer_apellido"
+  },
+  {
+    "label": "Segundo Apellido",
+    "field": "segundo_apellido"
+  },
+  {
+    "label": "Apellido Casada",
+    "field": "apellido_casada"
+  },
+  {
+    "label": "Dpi",
+    "field": "dpi"
+  },
+  {
+    "label": "Fecha Nacimiento",
+    "field": "fecha_nacimiento"
+  },
+  {
+    "label": "Direccion",
+    "field": "direccion_id"
+  },
+  {
+    "label": "Sexo",
+    "field": "sexo"
+  }
+] );
+
+columnsItems.value.push({
+  label: 'Opciones',
+  field: 'opciones',
+  filterable: false,
+  sortable: false,
+  width: '150px'
+});
 
 let items = ref([]);
 
@@ -20,7 +65,7 @@ const getItems = async () => {
 
   try {
 
-    let res  = await cliente.get('/api/users');
+    let res  = await cliente.get('api/residentes');
 
     items.value = res.data
 
@@ -33,16 +78,15 @@ const getItems = async () => {
 }
 
 getItems();
-
 const deleteItem = async (id: number) => {
 
-  if ((await AlertCuestion('¿Estas seguro de eliminar este usuario?')).isConfirmed) {
+  if ((await AlertCuestion('¿Estas seguro de eliminar est@ Residente?')).isConfirmed) {
 
     try {
 
-      let res = await cliente.delete(`/api/users/${id}`);
+      let res = await cliente.delete('api/residentes/' + id);
 
-      notifySuccess('Usuario Elimiado', res.data.message);
+      notifySuccess('Residente Elimiado', res.data.message);
 
       await getItems();
 
@@ -57,7 +101,7 @@ const deleteItem = async (id: number) => {
 };
 
 const active = useState('activeItem');
-active.value = 'User';
+active.value = 'Residente';
 
 </script>
 
@@ -70,18 +114,18 @@ active.value = 'User';
         variant="solid"
         label="Nuevo"
         :trailing="false"
-        to="/users/create"
+        to="residentes/create"
     />
   </div>
 
   <mi-card borderColor="#e74c3c">
 
     <template #header>
-      <h1>Usuarios</h1>
+      <h1>Residentes</h1>
     </template>
 
     <template #text>
-      <p>Listado de usuarios.</p>
+      <p>Listado de Residentes.</p>
     </template>
 
     <vue-good-table
@@ -99,14 +143,14 @@ active.value = 'User';
                 color="blue"
                 variant="solid"
                 class="mr-1"
-                :to="`/users/show/${props.row.id}`"
+                :to=" 'residentes/show/' + props.row.id "
             />
             <UButton
                 icon="i-heroicons-pencil-square"
                 size="sm"
                 color="yellow"
                 variant="solid"
-                :to="`/users/edit/${props.row.id}`"
+                :to=" 'residentes/edit/' + props.row.id "
                 class="mr-1"
             />
             <UButton

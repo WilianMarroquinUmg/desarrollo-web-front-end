@@ -6,9 +6,9 @@ import MiCard from "~/components/personalized/MiCard.vue";
 import InputDate from "~/components/personalized/InputDate.vue";
 const {notifySuccess, notifyError} = useToastNotifications();
 
-const schema = {{ validacionesCreate }} ;
+const schema = object({ nombre: string().required("Este campo es requerido") }) ;
 
-const state = reactive( {{ camposCreate }}  );
+const state = reactive( { nombre: undefined }  );
 
 const cliente = useSanctumRequest();
 
@@ -17,11 +17,11 @@ const onSubmit = async (event: FormSubmitEvent<InferType<typeof schema>>) => {
 
   try {
 
-    let res = await cliente.post('{{ url }}', state);
+    let res = await cliente.post('api/direcciones', state);
 
-    notifySuccess('{{ model }} Cread@', res.data.message);
+    notifySuccess('Direccion Cread@', res.data.message);
 
-    navigateTo('/{{ directory }}');
+    navigateTo('/direcciones');
 
   } catch (e) {
 
@@ -47,7 +47,13 @@ function submitForm() {
   }
 }
 
-const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
+const valoresInputFormulario1 = ref( [
+  {
+    "label": "Nombre",
+    "type": "text",
+    "key": "nombre"
+  }
+] );
 
 // const obtenerOpciones = async () => {
 //
@@ -69,12 +75,22 @@ const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
 
 
 const active = useState('activeItem');
-active.value = '{{ model }}';
+active.value = 'Direccion';
 
 </script>
 
 <template>
   <mi-card>
+
+    <template #header>
+      <h1>Crear Dirección</h1>
+    </template>
+
+    <template #text>
+      <p>Ingresa la ubicación de la dirección.</p>
+    </template>
+
+
     <UForm :schema="schema"
            :state="state"
            class="space-y-4"
@@ -135,7 +151,7 @@ active.value = '{{ model }}';
                  variant="solid"
                  label="Regresar"
                  icon="i-heroicons-arrow-left-end-on-rectangle"
-                 @click="navigateTo('/{{ directory }}')"
+                 @click="navigateTo('/direcciones')"
                  class="mr-1"
         />
         <UButton type="button"

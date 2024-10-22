@@ -1,22 +1,17 @@
+
 <template>
   <div>
-    <label v-text="label + ':'"></label>
     <span class="text-danger" v-show="required">*</span>
 
-    <ULink
-        v-if="item" @click.prevent="editItem(item)" v-show="!disabled"
-        to="/prueba"
-        active-class="text-primary"
-        inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+    <multiselect
+        v-model="item"
+        :options="options"
+        label="nombre"
+        placeholder="Seleccione uno..."
+        :disabled="disabled"
     >
-      Editar
-    </ULink>
-
-    <multiselect v-model="item" :options="options" label="nombre" placeholder="Seleccione uno..." :disabled="disabled">
       <template #noResult>
-        <a class="btn btn-sm btn-block btn-success" href="#" @click.prevent="newItem">
-          <i class="fa fa-plus"></i> Nuevo
-        </a>
+        <UButton label="Crear" icon="mdi-plus" @click.prevent="newItem" block />
       </template>
     </multiselect>
 
@@ -31,39 +26,25 @@
         <div class="modal-body">
           <div class="row">
             <div class="form-group col-sm-6">
-              <UFormGroup
-                  label="Nombre: "
-              >
+              <UFormGroup label="Nombre: ">
                 <UInput v-model="editedItem.nombre" @keydown.enter.prevent="save"/>
               </UFormGroup>
-
             </div>
           </div>
         </div>
 
         <template #footer>
-
-          <UButton label="Cancelar"
-                   icon="mdi-cancel"
-                   color="gray"
-                   class="mr-2"
-                   @click.prevent="close"
-          />
-
-          <UButton :label="loading ? 'GUARDANDO...' : 'GUARDAR'"
-                   icon="mdi-content-save-check"
-                   @click.prevent="save"/>
-
+          <UButton label="Cancelar" icon="mdi-cancel" color="gray" class="mr-2" @click.prevent="close" />
+          <UButton :label="loading ? 'GUARDANDO...' : 'GUARDAR'" icon="mdi-content-save-check" @click.prevent="save" />
         </template>
       </UCard>
     </UModal>
   </div>
 </template>
 
-
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script setup lang="ts">
-import {ref, computed, watch, onMounted} from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import multiselect from 'vue-multiselect';
 
 // Props
@@ -76,7 +57,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  value: {
+  modelValue: { // Cambiado a modelValue
     type: Object,
     default: null,
   },
@@ -94,37 +75,36 @@ const props = defineProps({
   },
 });
 
-
-const emit = defineEmits(['input']);
+const emit = defineEmits(['update:modelValue']);
 
 const isOpen = ref(false);
 const loading = ref(false);
 const item = ref(null);
-const editedItem = ref({id: 0, nombre: ''});
+const editedItem = ref({ id: 0, nombre: '' });
 const items_api = ref([]);
-const defaultItem = ref({id: 0, nombre: ''});
+const defaultItem = ref({ id: 0, nombre: '' });
 
 const cliente = useSanctumRequest();
-const {notifySuccess, notifyError} = useToastNotifications();
+const { notifySuccess, notifyError } = useToastNotifications();
 
 // Métodos
 const getId = (item) => (item ? item.id : null);
 
 const newItem = () => {
   isOpen.value = true;
-  editedItem.value = {...defaultItem.value};
+  editedItem.value = { ...defaultItem.value };
 };
 
 const editItem = (selectedItem) => {
   isOpen.value = true;
-  editedItem.value = {...selectedItem};
+  editedItem.value = { ...selectedItem };
 };
 
 const close = () => {
   isOpen.value = false;
   loading.value = false;
   setTimeout(() => {
-    editedItem.value = {...defaultItem.value};
+    editedItem.value = { ...defaultItem.value };
   }, 300);
 };
 
@@ -144,7 +124,6 @@ const save = async () => {
     const updatedItem = res.data;
     actualizaSelect(updatedItem);
     close();
-
     fetchDirecciones();
 
   } catch (e) {
@@ -170,7 +149,6 @@ const fetchDirecciones = async () => {
     try {
       const response = await cliente.get('api/direcciones');
       items_api.value = response.data;  // Asigna las direcciones obtenidas a items_api
-      console.log('Direcciones:', items_api.value);
     } catch (error) {
       console.error('Error fetching direcciones:', error);
     }
@@ -180,28 +158,23 @@ const fetchDirecciones = async () => {
 // Ejecutar cuando el componente se monta
 onMounted(() => {
   fetchDirecciones();
+  item.value = props.modelValue; // Asigna el valor inicial del modelValue a item
 });
 
 // Computed
-const formTitle = computed(() => (editedItem.value.id === 0 ? 'Nueva Dirección ' : 'Editar Dirección'));
-
+const formTitle = computed(() => (editedItem.value.id === 0 ? 'Nueva Dirección' : 'Editar Dirección'));
 const options = computed(() => (props.items.length > 0 ? props.items : items_api.value));
 
 // Watchers
 watch(
-    () => props.value,
+    () => props.modelValue, // Observa cambios en modelValue
     (val) => {
-      item.value = val;
+      item.value = val; // Asigna el valor de modelValue a item
     },
-    {immediate: true}
+    { immediate: true }
 );
 
 watch(item, (val) => {
-  emit('input', val); // Emite el evento input con el valor de item
+  emit('update:modelValue', val); // Emite el evento update:modelValue con el valor de item
 });
 </script>
-
-
-
-
-

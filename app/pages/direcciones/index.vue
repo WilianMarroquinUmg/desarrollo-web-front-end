@@ -9,10 +9,19 @@ const cliente = useSanctumRequest();
 const {notifySuccess, notifyError} = useToastNotifications();
 
 const columnsItems = ref([
-  {label: 'Nombre Completo', field: 'nombre_completo'},
-  {label: 'Email', field: 'email'},
-  {label: 'Opciones', field: 'opciones', thClass: 'text-center', tdClass: 'text-center', width: '150px'},
-]);
+  {
+    "label": "Nombre",
+    "field": "nombre"
+  }
+] );
+
+columnsItems.value.push({
+  label: 'Opciones',
+  field: 'opciones',
+  filterable: false,
+  sortable: false,
+  width: '150px'
+});
 
 let items = ref([]);
 
@@ -20,7 +29,7 @@ const getItems = async () => {
 
   try {
 
-    let res  = await cliente.get('/api/users');
+    let res  = await cliente.get('api/direcciones');
 
     items.value = res.data
 
@@ -33,16 +42,15 @@ const getItems = async () => {
 }
 
 getItems();
-
 const deleteItem = async (id: number) => {
 
-  if ((await AlertCuestion('¿Estas seguro de eliminar este usuario?')).isConfirmed) {
+  if ((await AlertCuestion('¿Estas seguro de eliminar est@ Direccion?')).isConfirmed) {
 
     try {
 
-      let res = await cliente.delete(`/api/users/${id}`);
+      let res = await cliente.delete('api/direcciones/' + id);
 
-      notifySuccess('Usuario Elimiado', res.data.message);
+      notifySuccess('Direccion Elimiado', res.data.message);
 
       await getItems();
 
@@ -57,7 +65,7 @@ const deleteItem = async (id: number) => {
 };
 
 const active = useState('activeItem');
-active.value = 'User';
+active.value = 'Direccion';
 
 </script>
 
@@ -70,18 +78,17 @@ active.value = 'User';
         variant="solid"
         label="Nuevo"
         :trailing="false"
-        to="/users/create"
+        to="direcciones/create"
     />
   </div>
 
   <mi-card borderColor="#e74c3c">
-
     <template #header>
-      <h1>Usuarios</h1>
+      <h1>Direcciones</h1>
     </template>
 
     <template #text>
-      <p>Listado de usuarios.</p>
+      <h1 class="text-center">Listado de direcciones.</h1>
     </template>
 
     <vue-good-table
@@ -99,14 +106,14 @@ active.value = 'User';
                 color="blue"
                 variant="solid"
                 class="mr-1"
-                :to="`/users/show/${props.row.id}`"
+                :to=" 'direcciones/show/' + props.row.id "
             />
             <UButton
                 icon="i-heroicons-pencil-square"
                 size="sm"
                 color="yellow"
                 variant="solid"
-                :to="`/users/edit/${props.row.id}`"
+                :to=" 'direcciones/edit/' + props.row.id "
                 class="mr-1"
             />
             <UButton
