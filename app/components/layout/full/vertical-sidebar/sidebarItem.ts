@@ -23,9 +23,15 @@ const sidebarItem: menu[] = [
         to: '/',
     },
     {
+        title: 'Pajas de Agua',
+        icon: 'mdi-water-outline',
+        value: 'PajaAgua',
+        to: '/pajas/',
+    },
+    {
         title: 'Admin',
         icon: 'mdi-account-cog',
-        value: 'users',
+        value: '',
         children: [
             {
                 title: 'Users',
@@ -33,11 +39,17 @@ const sidebarItem: menu[] = [
                 value: 'User',
                 to: '/users',
             },
+            {
+                title: 'Residentes',
+                icon: 'mdi-account-group',
+                value: 'Residente',
+                to: '/residentes',
+            },
 
             {
                 title: 'Catalogos',
                 icon: 'mdi-view-list',
-                value: 'Role',
+                value: '',
                 children: [
                     {
                         title: 'Tipos Adquisición',
@@ -55,19 +67,7 @@ const sidebarItem: menu[] = [
             },
         ],
     },
-    {
-        title: 'Movimientos',
-        icon: 'mdi-water-outline',
-        value: 'pruebas',
-        children: [
-            {
-                title: 'Pajas de Agua',
-                icon: 'mdi-water-outline',
-                value: 'PajaAgua',
-                to: '/pajas/',
-            },
-        ],
-    },
+
 ];
 
 

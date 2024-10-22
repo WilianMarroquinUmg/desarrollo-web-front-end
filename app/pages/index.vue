@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+import MiCard from "~/components/personalized/MiCard.vue";
+
 definePageMeta({
     title: 'Dashboard',
     layout: 'default',
@@ -12,17 +14,16 @@ const user = useSanctumUser()
 
 </script>
 <template>
-    <v-row>
 
-      <v-card>
-        <v-card-title>
-          <h2>Bienvenido <span v-text="user?.nombre_completo"></span> </h2>
-        </v-card-title>
-        <v-card-text>
+  <mi-card>
+    <template #header>
+      <h1 class="text-2xl font-bold">Inicio</h1>
+    </template>
+
+    <h1>Hi! {{ user.nombre_completo }}</h1>
 
 
-        </v-card-text>
-      </v-card>
+  </mi-card>
 
-    </v-row>
+
 </template>
