@@ -10,9 +10,9 @@ const {notifySuccess, notifyError} = useToastNotifications();
 const route = useRoute();
 const id = route.params.id;
 
-const schema = {{ validacionesCreate }}
+const schema = object({ nombre: string().required("Este campo es requerido") })
 
-const state = reactive({{ camposCreate }});
+const state = reactive({ nombre: undefined });
 
 const formRef = ref();
 
@@ -22,7 +22,7 @@ const getItem = async () => {
 
   try {
 
-    let res = await cliente.get(`{{ url }}/${id}`);
+    let res = await cliente.get(`api/tipos-adquisicions/${id}`);
 
     let objetKeys = Object.keys(state);
 
@@ -67,11 +67,11 @@ async function onSubmit(event: FormSubmitEvent<InferType<typeof schema>>) {
 
   try {
 
-    let res = await cliente.put(`{{ url }}/${id}`, state);
+    let res = await cliente.put(`api/tipos-adquisicions/${id}`, state);
 
-    notifySuccess('{{ model }} Actualizad@', res.data.message);
+    notifySuccess('TipoAdquisicion Actualizad@', res.data.message);
 
-    navigateTo('/{{ directory }}');
+    navigateTo('/tipoadquisiciones');
 
   } catch (e) {
 
@@ -88,7 +88,13 @@ function submitForm() {
 }
 
 
-const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
+const valoresInputFormulario1 = ref( [
+  {
+    "label": "Nombre",
+    "type": "text",
+    "key": "nombre"
+  }
+] );
 
 // const obtenerOpciones = async () => {
 //
@@ -109,13 +115,17 @@ const valoresInputFormulario1 = ref( {{ valoresInputFormulario }} );
 // });
 
 const active = useState('activeItem');
-active.value = '{{ model }}';
+active.value = 'TipoAdquisicion';
 </script>
 
 <template>
   <mi-card borderColor="#e74c3c">
     <template #header>
+      <h1>Editar Tipo Adquisición</h1>
+    </template>
 
+    <template #text>
+      <p>Ingresa el Nuevo Nombre del tipo de adquisición.</p>
     </template>
 
     <UForm :schema="schema"
@@ -177,7 +187,7 @@ active.value = '{{ model }}';
                  icon="i-heroicons-arrow-left-end-on-rectangle"
                  variant="solid"
                  label="Regresar"
-                 @click="navigateTo('/{{ directory }}')"
+                 @click="navigateTo('/tipoadquisiciones')"
                  class="mr-1"
         />
         <UButton type="button"

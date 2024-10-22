@@ -9,6 +9,8 @@ export const useSweetAlert2 = () => {
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#ff0000',
+      cancelButtonColor: '#d3d3d3',
     });
   }
 

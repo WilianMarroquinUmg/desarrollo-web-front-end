@@ -1,20 +1,37 @@
-<script lang="ts">
-import {defineComponent} from 'vue'
+<script setup lang="ts">
+const items = [{
+  label: 'Getting Started',
+  icon: 'i-heroicons-information-circle',
+  defaultOpen: true,
+  slot: 'getting-started'
+}, {
+  label: 'Installation',
+  icon: 'i-heroicons-arrow-down-tray',
+  defaultOpen: true,
+  slot: 'installation'
+},
+]
 
-
-export default defineComponent({
-  name: "prueba"
-})
+const slots = ref([
+  'getting-started',
+  'installation'
+])
 
 </script>
 
 <template>
-  <u-container>
+  <UAccordion :items="items" variant="solid">
 
-  </u-container>
+    <template #default="{ item }">
 
+      <template v-for="slot in slots" v-if="item.slot === slot">
+
+        <h1 v-text="slot"></h1>
+
+      </template>
+    </template>
+
+
+  </UAccordion>
 </template>
 
-<style scoped>
-
-</style>
