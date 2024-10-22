@@ -64,7 +64,7 @@ export default defineComponent({
         size="sm"
         color="primary"
         variant="solid"
-        label="Nuevo"
+        label="Nueva Paja de Agua"
         :trailing="false"
         to="/pajas/nueva"
     />
@@ -73,6 +73,10 @@ export default defineComponent({
   <mi-card>
     <template #header>
       <h1>Pajas de Agua</h1>
+    </template>
+
+    <template #text>
+      <p>Listado de dueños de pajas de agua.</p>
     </template>
 
     <vue-good-table

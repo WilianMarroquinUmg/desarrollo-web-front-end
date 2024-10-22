@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import MiCard from '~/components/personalized/MiCard.vue';
-import { object, string, InferType } from 'yup';
-import { ref, reactive } from 'vue';
-import type { FormSubmitEvent } from '#ui/types';
+import {object, string, InferType} from 'yup';
+import {ref, reactive} from 'vue';
+import type {FormSubmitEvent} from '#ui/types';
+
 const {notifySuccess, notifyError} = useToastNotifications();
 
 const route = useRoute();
@@ -86,49 +87,66 @@ active.value = 'users';
 <template>
   <mi-card borderColor="#e74c3c">
     <template #header>
-      <h1>Editar el usuario: {{ state.nombre_completo }}</h1>
+      <h1>Actualizar Usuario</h1>
+    </template>
+
+    <template #text>
+      <p>Ingresa los nuevos datos para actualizar el usuario.</p>
     </template>
 
     <UForm
         ref="formRef"
-    :schema="schema"
-    :state="state"
-    class="space-y-4"
-    @submit="onSubmit"
+        :schema="schema"
+        :state="state"
+        class="space-y-4"
+        @submit="onSubmit"
     >
-    <UFormGroup label="Primer Nombre" name="primer_nombre">
-      <UInput v-model="state.primer_nombre" />
-    </UFormGroup>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <UFormGroup label="Primer Nombre" name="primer_nombre">
+          <UInput v-model="state.primer_nombre"/>
+        </UFormGroup>
 
-    <UFormGroup label="Segundo Nombre" name="segundo_nombre">
-      <UInput v-model="state.segundo_nombre" />
-    </UFormGroup>
+        <UFormGroup label="Segundo Nombre" name="segundo_nombre">
+          <UInput v-model="state.segundo_nombre"/>
+        </UFormGroup>
 
-    <UFormGroup label="Primer Apellido" name="primer_apellido">
-      <UInput v-model="state.primer_apellido" />
-    </UFormGroup>
+        <UFormGroup label="Primer Apellido" name="primer_apellido">
+          <UInput v-model="state.primer_apellido"/>
+        </UFormGroup>
 
-    <UFormGroup label="Segundo Apellido" name="segundo_apellido">
-      <UInput v-model="state.segundo_apellido" />
-    </UFormGroup>
+        <UFormGroup label="Segundo Apellido" name="segundo_apellido">
+          <UInput v-model="state.segundo_apellido"/>
+        </UFormGroup>
 
-    <UFormGroup label="Email" name="email">
-      <UInput v-model="state.email" />
-    </UFormGroup>
+        <UFormGroup label="Email" name="email">
+          <UInput v-model="state.email"/>
+        </UFormGroup>
 
-    <UFormGroup label="Nueva Contraseña" name="password">
-      <UInput v-model="state.password" type="password"/>
-    </UFormGroup>
+        <UFormGroup label="Nueva Contraseña" name="password">
+          <UInput v-model="state.password" type="password"/>
+        </UFormGroup>
 
-    <UFormGroup label="Confirmar Nueva Contraseña" name="password_confirmation">
-      <UInput v-model="state.password_confirmation" type="password"/>
-    </UFormGroup>
+        <UFormGroup label="Confirmar Nueva Contraseña" name="password_confirmation">
+          <UInput v-model="state.password_confirmation" type="password"/>
+        </UFormGroup>
+      </div>
     </UForm>
 
     <template #footer>
       <div>
-        <UButton type="button" color="red" variant="soft" label="Regresar" @click="navigateTo('/users')" />
-        <UButton type="button" label="Guardar" @click="submitForm" />
+        <UButton type="button"
+                 color="gray"
+                 variant="solid"
+                 label="Regresar"
+                 icon="i-heroicons-arrow-left-end-on-rectangle"
+                 to="/users"
+                 class="mr-1"
+        />
+        <UButton type="button"
+                 label="Guardar"
+                 icon="i-heroicons-bookmark-square"
+                 @click="submitForm"
+        />
       </div>
     </template>
   </mi-card>

@@ -33,12 +33,7 @@ const sidebarItem: menu[] = [
                 value: 'User',
                 to: '/users',
             },
-            {
-                title: 'Pajas de Agua',
-                icon: 'mdi-water-outline',
-                value: 'PajaAgua',
-                to: '/pajas/',
-            },
+
             {
                 title: 'Catalogos',
                 icon: 'mdi-view-list',
@@ -61,29 +56,16 @@ const sidebarItem: menu[] = [
         ],
     },
     {
-        title: 'Pajas De Agua',
+        title: 'Movimientos',
         icon: 'mdi-water-outline',
         value: 'pruebas',
         children: [
             {
-                title: 'Nuevo Traslado',
-                icon: 'mdi-file-document-edit',
-                value: 'nuevoTraslado',
-                to: '/pajas/trasladar',
+                title: 'Pajas de Agua',
+                icon: 'mdi-water-outline',
+                value: 'PajaAgua',
+                to: '/pajas/',
             },
-            {
-                title: 'Residentes',
-                icon: 'mdi-account-multiple',
-                value: 'Residente',
-                to: '/residentes',
-            },
-            {
-                title: 'Buscador',
-                icon: 'mdi-file-search',
-                value: 'PajasBuscador',
-                to: '/pajas/buscador',
-            },
-
         ],
     },
 ];
