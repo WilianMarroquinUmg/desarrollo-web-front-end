@@ -9,6 +9,7 @@
             <b-list-group-item @click="view = 'registroPersonas'">Registro de Propietarios</b-list-group-item>
             <b-list-group-item @click="view = 'certificados'">Certificados de Propiedad</b-list-group-item>
             <b-list-group-item @click="view = 'historialPajas'">Historial de Compras/Ventas</b-list-group-item>
+            <b-list-group-item @click="view = 'crearPaja'">Crear Paja de Agua</b-list-group-item>
           </b-list-group>
         </b-card>
       </b-col>
@@ -43,6 +44,22 @@
         <b-card v-if="view === 'historialPajas'" title="Historial de Compras/Ventas de Pajas de Agua">
           <b-table :items="historialPajas" :fields="fieldsHistorial" striped hover class="mt-3"></b-table>
         </b-card>
+
+ <!-- Crear Paja de Agua -->
+        <b-card v-if="view === 'crearPaja'" title="Crear Paja de Agua"> <!-- Nueva vista -->
+          <b-form @submit.prevent="crearPaja">
+            <b-form-group label="Número de Paja de Agua:" label-for="numeroPaja">
+              <b-form-input id="numeroPaja" v-model="nuevaPaja.numero" placeholder="Ingrese el número de la paja"></b-form-input>
+            </b-form-group>
+            <b-form-group label="Propietario:" label-for="propietarioPaja">
+              <b-form-select id="propietarioPaja" v-model="nuevaPaja.propietario" :options="opcionesPropietarios"></b-form-select>
+            </b-form-group>
+            <b-button type="submit" variant="primary">Registrar Paja de Agua</b-button>
+          </b-form>
+
+          <b-table :items="pajas" :fields="fieldsPajas" striped hover class="mt-3"></b-table>
+        </b-card>
+
       </b-col>
     </b-row>
   </div>
