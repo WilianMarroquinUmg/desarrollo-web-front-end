@@ -30,6 +30,11 @@
           </b-form>
 
           <b-table :items="propietarios" :fields="fieldsPropietarios" striped hover class="mt-3"></b-table>
+          <b-table :items="propietarios" :fields="fieldsPropietarios" striped hover class="mt-3">
+          <template #cell(acciones)="row">
+         <b-button variant="danger" @click="eliminarPropietario(row.index)">Eliminar</b-button>
+        </template>
+    </b-table>
         </b-card>
 
         <b-card v-if="view === 'certificados'" title="Certificados de Propiedad">
@@ -113,6 +118,10 @@ export default {
           certificado: `Certificado de propiedad emitido para ${this.propietarioSeleccionado}`
         });
       }
+    }
+    eliminarPropietario(index) { // Método para eliminar propietario
+      this.propietarios.splice(index, 1); // Elimina el propietario en la posición 'index'
+      this.actualizarOpcionesPropietarios(); // Actualiza las opciones de propietarios
     }
   }
 };
