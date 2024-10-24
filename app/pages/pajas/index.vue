@@ -94,7 +94,7 @@ export default defineComponent({
                 size="sm"
                 color="blue"
                 variant="solid"
-                :to=" 'pajas/detalles/' + props.row.residente_id"
+                :to="'/pajas/detalles/' + props.row.residente_id"
                 class="mr-1"
             />
           </UTooltip>
@@ -105,7 +105,7 @@ export default defineComponent({
                    size="sm"
                    color="orange"
                    variant="solid"
-                   :to=" '/pajas/trasladar/' + props.row.residente_id"
+                   :to="'/pajas/trasladar/' + props.row.residente_id"
                    class="mr-1"
                />
             </UTooltip>

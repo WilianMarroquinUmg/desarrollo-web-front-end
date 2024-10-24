@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue';
+import Esperar from "~/components/personalized/esperar.vue";
 
 const toast = useToast()
 
@@ -14,12 +15,14 @@ interface DatosUsuario {
 
 }
 
-
+const esperar = ref(false);
 
 const userCredentials = ref({})
 
 const submit = async () => {
   try {
+
+    esperar.value = true;
 
     await login(userCredentials.value);
 
@@ -85,5 +88,7 @@ const submit = async () => {
       </v-btn>
     </v-col>
   </v-row>
+  <esperar :is-visible="esperar" />
+
 </template>
 

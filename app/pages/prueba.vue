@@ -1,37 +1,20 @@
 <script setup lang="ts">
-const items = [{
-  label: 'Getting Started',
-  icon: 'i-heroicons-information-circle',
-  defaultOpen: true,
-  slot: 'getting-started'
-}, {
-  label: 'Installation',
-  icon: 'i-heroicons-arrow-down-tray',
-  defaultOpen: true,
-  slot: 'installation'
-},
-]
 
-const slots = ref([
-  'getting-started',
-  'installation'
-])
+
+import Esperar from "~/components/personalized/esperar.vue";
+
+import { ref } from 'vue';
+
+
+const modalVisible = ref(false);
 
 </script>
 
 <template>
-  <UAccordion :items="items" variant="solid">
 
-    <template #default="{ item }">
+  <esperar :is-visible="false" />
 
-      <template v-for="slot in slots" v-if="item.slot === slot">
+  <UButton @click="modalVisible = !modalVisible">Abrir modal</UButton>
 
-        <h1 v-text="slot"></h1>
-
-      </template>
-    </template>
-
-
-  </UAccordion>
 </template>
 
