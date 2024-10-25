@@ -34,7 +34,7 @@ const sidebarItem: menu[] = [
         value: '',
         children: [
             {
-                title: 'Users',
+                title: 'Usuarios',
                 icon: 'mdi-account-multiple',
                 value: 'User',
                 to: '/users',

@@ -74,7 +74,7 @@ active.value = 'Direccion';
     <UButton
         icon="i-heroicons-pencil-square"
         size="sm"
-        color="primary"
+        color="blue"
         variant="solid"
         label="Nuevo"
         :trailing="false"

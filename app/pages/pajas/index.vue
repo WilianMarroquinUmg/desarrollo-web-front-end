@@ -62,7 +62,7 @@ export default defineComponent({
     <UButton
         icon="i-heroicons-pencil-square"
         size="sm"
-        color="primary"
+        color="blue"
         variant="solid"
         label="Nueva Paja de Agua"
         :trailing="false"
