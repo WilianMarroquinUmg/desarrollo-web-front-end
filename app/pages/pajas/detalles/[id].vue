@@ -84,7 +84,7 @@ getDetalles();
       <template v-for="item in items" :key="item.slot" v-slot:[item.slot]>
 
 
-        <UTooltip text="En construcción">
+
           <UButton @click="getDocumento(item.data.id)"
                    color="green"
                    variant="solid"
@@ -93,11 +93,7 @@ getDetalles();
                    label="Imprimir Certificado"
                    block
                    style="margin-bottom: 10px"
-                   disabled
           />
-
-
-        </UTooltip>
 
         <time-line :items="item.data.bitacoras"/>
 
