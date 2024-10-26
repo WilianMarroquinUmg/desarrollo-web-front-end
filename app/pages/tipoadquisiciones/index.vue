@@ -74,7 +74,7 @@ active.value = 'TipoAdquisicion';
     <UButton
         icon="i-heroicons-pencil-square"
         size="sm"
-        color="primary"
+        color="blue"
         variant="solid"
         label="Nuevo"
         :trailing="false"
@@ -85,7 +85,7 @@ active.value = 'TipoAdquisicion';
   <mi-card borderColor="#e74c3c">
 
     <template #header>
-      <h1>Tpos de Adquisición</h1>
+      <h1>Tipos de Adquisición</h1>
     </template>
 
     <template #text>

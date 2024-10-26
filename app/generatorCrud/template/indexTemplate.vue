@@ -69,7 +69,7 @@ active.value = '{{ model }}';
     <UButton
         icon="i-heroicons-pencil-square"
         size="sm"
-        color="primary"
+        color="Blue"
         variant="solid"
         label="Nuevo"
         :trailing="false"
