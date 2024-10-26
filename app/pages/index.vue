@@ -93,7 +93,7 @@ onMounted(() => {
 <template>
   <mi-card>
     <template #header>
-      <h1>Buenas señor administrador {{ user?.nombre_completo }}</h1>
+      <h1> Hola, {{ user?.nombre_completo }}</h1>
     </template>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Cambia aquí a grid-cols-1 para móviles -->
