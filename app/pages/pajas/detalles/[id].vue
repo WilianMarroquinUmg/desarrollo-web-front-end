@@ -30,6 +30,26 @@ const formatearItems = (items) => {
   })
 }
 
+const urlBase = useSanctumConfig().baseUrl;
+const getDocumento = async (id)  => {
+  try {
+
+    console.log('fetchHTML');
+    let res = await cliente.get(`api/paja-aguas/get/certificado/${id}`);
+
+    let url = urlBase + res.data;
+
+    window.open(url, '_blank');
+    window.focus();
+
+  } catch (error) {
+
+
+    notifyError(error);
+
+  }
+};
+
 getDetalles();
 </script>
 
@@ -62,6 +82,18 @@ getDetalles();
         :items="items"
     >
       <template v-for="item in items" :key="item.slot" v-slot:[item.slot]>
+
+
+          <UButton @click="getDocumento(item.data.id)"
+                   color="green"
+                   variant="solid"
+                   size="sm"
+                   icon="i-heroicons-printer"
+                   label="Imprimir Certificado"
+                   block
+                   style="margin-bottom: 10px"
+
+          />
 
         <time-line :items="item.data.bitacoras" />
 
