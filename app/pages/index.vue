@@ -56,17 +56,11 @@ const renderChart = () => {
             label: 'My Pie Chart',
             data: dataPastel.value, // Asegúrate de usar dataPastel.value
             backgroundColor: [
-              'rgba(245, 40, 145, 0.8)',
-              'rgba(17, 40, 145, 0.8)',
-              'rgba(17, 255, 145, 0.8)',
-              'rgba(249, 69, 255, 0.8)',
+              'rgba(0, 0, 80, 0.8)',
+              'rgba(224, 248, 49, 0.8)',
+              'rgba(255, 0, 40, 1)',
+              'rgba(0, 194, 0, 1)',
             ],
-            // borderColor: [
-            //   'rgba(255, 99, 132, 1)',
-            //   'rgba(54, 162, 235, 1)',
-            //   'rgba(255, 206, 86, 1)',
-            //   'rgba(75, 192, 192, 1)',
-            // ],
             borderWidth: 1,
           }]
         },
@@ -96,69 +90,6 @@ onMounted(() => {
 });
 
 </script>
-
-<!--<template>-->
-<!--  <mi-card>-->
-<!--    <template #header>-->
-<!--      <h1>Buenas señor administrador {{ user?.nombre_completo }}</h1>-->
-<!--    </template>-->
-
-<!--    <div class="grid grid-cols-2 gap-4">-->
-
-
-<!--      <div class="flex flex-col space-y-2">-->
-<!--        <mi-card>-->
-<!--          <template #header>-->
-<!--            <h1>Detalles Forma Adquisición</h1>-->
-<!--          </template>-->
-
-<!--          <template #text>-->
-<!--            <p>Detalles de las formas en que más se adquieren las pajas de agua.</p>-->
-<!--          </template>-->
-
-<!--          <canvas ref="myPieChart"></canvas>-->
-<!--        </mi-card>-->
-<!--      </div>-->
-<!--      <div class="flex flex-col space-y-2">-->
-<!--        <mi-card>-->
-
-<!--          <template #header>-->
-<!--            <h1>Transacciones Resientes</h1>-->
-<!--          </template>-->
-
-<!--          <template #text>-->
-<!--            <p>Listado de las ultimas 5 transacciones recientes.</p>-->
-<!--          </template>-->
-
-<!--          <div>-->
-<!--            <ul style="list-style-type: none; padding: 0;">-->
-<!--              <li-->
-<!--                  v-for="transaccion in transaccionesRecientes"-->
-<!--                  :key="transaccion.id"-->
-<!--                  style="border-bottom: 1px solid #ccc; padding: 10px; margin-bottom: 5px; display: flex; align-items: center; background: aliceblue"-->
-<!--              >-->
-<!--                <div style="flex-grow: 1;">-->
-<!--                  <p style="font-size: 14px; margin: 0; color: #333;">-->
-<!--                    <strong>El residente {{ transaccion.residente.nombre_completo }}</strong> adquirió por medio de-->
-<!--                    "<em>{{ transaccion.transaccion.nombre }}"</em>-->
-<!--                  </p>-->
-<!--                </div>-->
-<!--                <span style="font-size: 12px; color: #999;">{{-->
-<!--                    new Date(transaccion.created_at).toLocaleDateString()-->
-<!--                  }}</span>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-
-
-<!--        </mi-card>-->
-
-<!--      </div>-->
-
-
-<!--    </div>-->
-<!--  </mi-card>-->
-<!--</template>-->
 <template>
   <mi-card>
     <template #header>
