@@ -84,7 +84,7 @@ const getTipoAdquisicion = async () => {
 
     let res = await cliente.get('api/tipos-adquisicions');
 
-    tiposAdquisicion.value = res.data;
+    tiposAdquisicion.value = res.data.filter((item: any) => item.id == 4);
 
   } catch (error) {
 
