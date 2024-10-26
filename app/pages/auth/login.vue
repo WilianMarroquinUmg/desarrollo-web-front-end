@@ -19,7 +19,7 @@ definePageMeta({
           <v-card rounded="md" elevation="10" class="px-sm-1 px-0 withbg mx-auto" max-width="500">
             <v-card-item class="pa-sm-8">
               <div class="d-flex justify-center ">
-                <img src="/images/logoApp.jpg" style="width: 50%" alt="">
+                <img src="/images/logoLogin.jpg" style="width: 50%; border-radius: 30px" alt="">
               </div>
               <AuthLoginForm/>
 
