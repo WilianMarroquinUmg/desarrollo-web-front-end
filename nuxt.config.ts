@@ -7,6 +7,9 @@ srcDir: 'app',
     shim: false
   },
 
+  colorMode: {
+    preference: 'light'
+  },
 
   build: {
     transpile: ["vuetify"],

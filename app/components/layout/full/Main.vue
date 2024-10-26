@@ -15,7 +15,7 @@ const sDrawer = ref(true);
 
   <v-navigation-drawer left elevation="0" app class="leftSidebar" v-model="sDrawer">
     <!---Logo part -->
-    <div style="background: blue; height: 60px; padding: 20px; ">
+    <div style="background: blue; height: 60px; padding: 15px; ">
       <LayoutFullLogo/>
     </div>
 

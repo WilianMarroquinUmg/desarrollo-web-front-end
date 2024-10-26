@@ -3,7 +3,7 @@ import MiCard from "~/components/personalized/MiCard.vue";
 import TimeLine from "~/components/personalized/TimeLine.vue";
 
 const cliente = useSanctumRequest()
-const { notifyError, notifySuccess } = useToastNotifications()
+const {notifyError, notifySuccess} = useToastNotifications()
 
 const items = ref([])
 
@@ -31,11 +31,11 @@ const formatearItems = (items) => {
 }
 
 const urlBase = useSanctumConfig().baseUrl;
-const getDocumento = async (id)  => {
+const getDocumento = async (id) => {
   try {
 
     console.log('fetchHTML');
-    let res = await cliente.get(`api/paja-aguas/get/certificado/${id}`);
+    let res = await cliente.get(`api/paja-aguas/get/certificado/otro/${id}`);
 
     let url = urlBase + res.data;
 
@@ -43,7 +43,6 @@ const getDocumento = async (id)  => {
     window.focus();
 
   } catch (error) {
-
 
     notifyError(error);
 
@@ -72,7 +71,8 @@ getDetalles();
     </template>
 
     <template #text>
-      <h1 class="text-center">Historial de movimientos de las pajas de agua, ordenados del más reciente al más antiguo.</h1>
+      <h1 class="text-center">Historial de movimientos de las pajas de agua, ordenados del más reciente al más
+        antiguo.</h1>
     </template>
 
     <UAccordion
@@ -84,6 +84,7 @@ getDetalles();
       <template v-for="item in items" :key="item.slot" v-slot:[item.slot]>
 
 
+        <UTooltip text="En construcción">
           <UButton @click="getDocumento(item.data.id)"
                    color="green"
                    variant="solid"
@@ -92,10 +93,13 @@ getDetalles();
                    label="Imprimir Certificado"
                    block
                    style="margin-bottom: 10px"
-
+                   disabled
           />
 
-        <time-line :items="item.data.bitacoras" />
+
+        </UTooltip>
+
+        <time-line :items="item.data.bitacoras"/>
 
       </template>
     </UAccordion>
