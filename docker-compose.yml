@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nuxt-app:
+    build: .
+    ports:
+      - "3000:3000"  # Exponer el puerto 3000 en el contenedor al puerto 3000 de tu máquina
+    volumes:
+      - .:/app       # Montar el directorio actual en /app dentro del contenedor para facilitar cambios en vivo
+      - /app/node_modules  # Evitar que node_modules se sobrescriba con los de tu máquina local
+    environment:
+      - NODE_ENV=development
+    command: npm run dev  # Ejecutar el servidor de desarrollo de Nuxt
+    restart: unless-stopped
