@@ -35,7 +35,7 @@ srcDir: 'app',
 
   sanctum: {
     mode: 'token',
-    baseUrl: 'https://naranjobakend.lat/',
+    baseUrl: 'http://backpajaagua.local/',
     userStateKey: 'sanctum.user.identity',
     redirectIfAuthenticated: true,
     redirectIfUnauthenticated: true,
